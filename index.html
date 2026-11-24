@@ -332,24 +332,24 @@
           x: 428, y: 266, w: 144, h: 72,
           lift:  { x: 433, y: 271, w: 72, h: 62 },
           stair: { x: 509, y: 271, w: 58, h: 62 },
-          junction: { x: 500, y: 242 }
+          junction: { x: 500, y: 228 }
         },
         bottom: {
           x: 428, y: 522, w: 144, h: 72,
           lift:  { x: 433, y: 527, w: 72, h: 62 },
           stair: { x: 509, y: 527, w: 58, h: 62 },
-          junction: { x: 500, y: 618 }
+          junction: { x: 500, y: 632 }
         }
       },
       wings: {
-        bottom_right: { x1: 574, x2: 784, y: 690, h: 118, corrY: 618, doorY: 690 },
-        bottom_left:  { x1: 216, x2: 426, y: 690, h: 118, corrY: 618, doorY: 690 },
-        left_side:    { y1: 170, y2: 690, x: 80,  w: 136, corrX: 254, doorX: 216 },
-        top_left:     { x1: 216, x2: 426, y: 52,  h: 118, corrY: 242, doorY: 170 },
-        top_right:    { x1: 574, x2: 784, y: 52,  h: 118, corrY: 242, doorY: 170 },
-        right_side:   { y1: 170, y2: 690, x: 784, w: 136, corrX: 746, doorX: 784 },
-        opp_bottom:   { x: 428, y: 690, w: 144, h: 118, corrY: 618, doorY: 690 },
-        opp_top:      { x: 428, y: 52,  w: 144, h: 118, corrY: 242, doorY: 170 }
+        bottom_right: { x1: 574, x2: 784, y: 690, h: 118, corrY: 632, doorY: 690 },
+        bottom_left:  { x1: 216, x2: 426, y: 690, h: 118, corrY: 632, doorY: 690 },
+        left_side:    { y1: 170, y2: 690, x: 80,  w: 136, corrX: 236, doorX: 216 },
+        top_left:     { x1: 216, x2: 426, y: 52,  h: 118, corrY: 228, doorY: 170 },
+        top_right:    { x1: 574, x2: 784, y: 52,  h: 118, corrY: 228, doorY: 170 },
+        right_side:   { y1: 170, y2: 690, x: 784, w: 136, corrX: 764, doorX: 784 },
+        opp_bottom:   { x: 428, y: 690, w: 144, h: 118, corrY: 632, doorY: 690 },
+        opp_top:      { x: 428, y: 52,  w: 144, h: 118, corrY: 228, doorY: 170 }
       }
     };
 
@@ -1020,10 +1020,10 @@
       }
 
       [1, 2, 3, 4].forEach(f => {
-        addNode(`f${f}_c_tl`, f, 254, 242, 'corridor', `มุมทางเดินโซน B–C ชั้น ${f}`);
-        addNode(`f${f}_c_tr`, f, 746, 242, 'corridor', `มุมทางเดินโซน C–D ชั้น ${f}`);
-        addNode(`f${f}_c_bl`, f, 254, 618, 'corridor', `มุมทางเดินโซน A–B ชั้น ${f}`);
-        addNode(`f${f}_c_br`, f, 746, 618, 'corridor', `มุมทางเดินโซน A–D ชั้น ${f}`);
+        addNode(`f${f}_c_tl`, f, 236, 228, 'corridor', `มุมทางเดินโซน B–C ชั้น ${f}`);
+        addNode(`f${f}_c_tr`, f, 764, 228, 'corridor', `มุมทางเดินโซน C–D ชั้น ${f}`);
+        addNode(`f${f}_c_bl`, f, 236, 632, 'corridor', `มุมทางเดินโซน A–B ชั้น ${f}`);
+        addNode(`f${f}_c_br`, f, 764, 632, 'corridor', `มุมทางเดินโซน A–D ชั้น ${f}`);
 
         addNode(`f${f}_sub_tl`, f, 80,  111, 'entrance', `ทางเข้าย่อยมุมโซน B–C ชั้น ${f}`);
         addNode(`f${f}_sub_tr`, f, 920, 111, 'entrance', `ทางเข้าย่อยมุมโซน C–D ชั้น ${f}`);
@@ -1044,8 +1044,8 @@
         addUndirectedEdge(`f${f}_sub_br`, `f${f}_sub_br_in`);
         addUndirectedEdge(`f${f}_sub_br_in`, `f${f}_c_br`);
 
-        addNode(`f${f}_lift_main_j`, f, 500, 618, 'elevator', `โถงลิฟต์หลัก โซน A ชั้น ${f}`);
-        addNode(`f${f}_lift_back_j`, f, 500, 242, 'elevator', `โถงลิฟต์หลัง โซน C ชั้น ${f}`);
+        addNode(`f${f}_lift_main_j`, f, 500, 632, 'elevator', `โถงลิฟต์หลัก โซน A ชั้น ${f}`);
+        addNode(`f${f}_lift_back_j`, f, 500, 228, 'elevator', `โถงลิฟต์หลัง โซน C ชั้น ${f}`);
 
         if (f === 1) {
           addNode('f1_ent_main', 1, 500, 690, 'entrance', 'ประตูทางเข้าหลัก โซน A');
@@ -1061,7 +1061,7 @@
 
         let prevBotL = `f${f}_c_bl`;
         botLeftRooms.forEach(r => {
-          addNode(r.corridorNode, f, r.door.x, 618, 'corridor', `ทางเดินโซน A ชั้น ${f}`);
+          addNode(r.corridorNode, f, r.door.x, 632, 'corridor', `ทางเดินโซน A ชั้น ${f}`);
           addUndirectedEdge(prevBotL, r.corridorNode);
           prevBotL = r.corridorNode;
         });
@@ -1069,7 +1069,7 @@
 
         let prevBotR = `f${f}_lift_main_j`;
         botRightRooms.forEach(r => {
-          addNode(r.corridorNode, f, r.door.x, 618, 'corridor', `ทางเดินโซน A ชั้น ${f}`);
+          addNode(r.corridorNode, f, r.door.x, 632, 'corridor', `ทางเดินโซน A ชั้น ${f}`);
           addUndirectedEdge(prevBotR, r.corridorNode);
           prevBotR = r.corridorNode;
         });
@@ -1080,7 +1080,7 @@
 
         let prevTopL = `f${f}_c_tl`;
         topLeftRooms.forEach(r => {
-          addNode(r.corridorNode, f, r.door.x, 242, 'corridor', `ทางเดินโซน C ชั้น ${f}`);
+          addNode(r.corridorNode, f, r.door.x, 228, 'corridor', `ทางเดินโซน C ชั้น ${f}`);
           addUndirectedEdge(prevTopL, r.corridorNode);
           prevTopL = r.corridorNode;
         });
@@ -1088,7 +1088,7 @@
 
         let prevTopR = `f${f}_lift_back_j`;
         topRightRooms.forEach(r => {
-          addNode(r.corridorNode, f, r.door.x, 242, 'corridor', `ทางเดินโซน C ชั้น ${f}`);
+          addNode(r.corridorNode, f, r.door.x, 228, 'corridor', `ทางเดินโซน C ชั้น ${f}`);
           addUndirectedEdge(prevTopR, r.corridorNode);
           prevTopR = r.corridorNode;
         });
@@ -1097,7 +1097,7 @@
         const leftRooms = floorRooms.filter(r => r.corridorNode.startsWith(`f${f}_corr_left_`)).sort((a, b) => a.door.y - b.door.y);
         let prevLeft = `f${f}_c_tl`;
         leftRooms.forEach(r => {
-          addNode(r.corridorNode, f, 254, r.door.y, 'corridor', `ทางเดินโซน B ชั้น ${f}`);
+          addNode(r.corridorNode, f, 236, r.door.y, 'corridor', `ทางเดินโซน B ชั้น ${f}`);
           addUndirectedEdge(prevLeft, r.corridorNode);
           prevLeft = r.corridorNode;
         });
@@ -1106,7 +1106,7 @@
         const rightRooms = floorRooms.filter(r => r.corridorNode.startsWith(`f${f}_corr_right_`)).sort((a, b) => a.door.y - b.door.y);
         let prevRight = `f${f}_c_tr`;
         rightRooms.forEach(r => {
-          addNode(r.corridorNode, f, 746, r.door.y, 'corridor', `ทางเดินโซน D ชั้น ${f}`);
+          addNode(r.corridorNode, f, 764, r.door.y, 'corridor', `ทางเดินโซน D ชั้น ${f}`);
           addUndirectedEdge(prevRight, r.corridorNode);
           prevRight = r.corridorNode;
         });
@@ -1626,8 +1626,8 @@
 
           <rect x="80" y="52" width="840" height="756" rx="14" fill="#ffffff" stroke="#475569" stroke-width="3" />
 
-          <rect x="236" y="226" width="528" height="408" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
-          <rect x="254" y="242" width="492" height="376" rx="8" fill="none" stroke="#94a3b8" stroke-width="1.4" stroke-dasharray="6 6" />
+          <rect x="220" y="212" width="560" height="436" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+          <rect x="236" y="228" width="528" height="404" rx="8" fill="none" stroke="#94a3b8" stroke-width="1.4" stroke-dasharray="6 6" />
 
           <rect x="292" y="346" width="416" height="168" rx="16" fill="url(#grassPattern)" stroke="#16a34a" stroke-dasharray="6 4" stroke-width="2" />
           <text x="500" y="424" text-anchor="middle" fill="#14532d" font-family="Prompt, sans-serif" font-size="17" font-weight="700">
