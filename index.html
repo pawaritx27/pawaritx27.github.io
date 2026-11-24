@@ -1,0 +1,1966 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ศาลากลางจังหวัดชุมพร • ระบบแผนผังและนำทางภายในอาคาร (ชั้น 1–4)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans Thai"', 'sans-serif'],
+            display: ['"Prompt"', '"Noto Sans Thai"', 'sans-serif'],
+          },
+          colors: {
+            gov: {
+              navy: '#0f2942',
+              navyDark: '#091b2d',
+              navyLight: '#1a3f63',
+              amber: '#d97706',
+              amberLight: '#fef3c7',
+              bg: '#f1f5f9',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      font-family: 'Noto Sans Thai', sans-serif;
+      background-color: #f1f5f9;
+      color: #0f172a;
+      -webkit-tap-highlight-color: transparent;
+    }
+    h1, h2, h3, h4, .font-display {
+      font-family: 'Prompt', 'Noto Sans Thai', sans-serif;
+    }
+    @keyframes dashMove {
+      to { stroke-dashoffset: -36; }
+    }
+    .route-animated {
+      stroke-dasharray: 11 7;
+      animation: dashMove 0.85s linear infinite;
+    }
+    @keyframes radarPulse {
+      0% { transform: scale(0.8); opacity: 0.95; }
+      100% { transform: scale(2.4); opacity: 0; }
+    }
+    .svg-pulse {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: radarPulse 1.75s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+    @keyframes roomGlow {
+      0%, 100% { filter: drop-shadow(0 0 4px rgba(217, 119, 6, 0.45)); }
+      50% { filter: drop-shadow(0 0 12px rgba(220, 38, 38, 0.85)); }
+    }
+    .room-target-glow {
+      animation: roomGlow 1.5s ease-in-out infinite;
+    }
+    .room-group {
+      cursor: pointer;
+      transition: opacity 0.18s ease, filter 0.18s ease;
+    }
+    .room-group:hover .room-box {
+      filter: brightness(0.94);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <header class="bg-gradient-to-r from-gov-navyDark via-gov-navy to-gov-navyLight text-white shadow-md border-b-[3px] border-gov-amber z-40">
+    <div class="max-w-5xl mx-auto px-3.5 sm:px-6 py-2.5 sm:py-3 flex items-center gap-3">
+      <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-amber-300 via-amber-500 to-amber-600 p-0.5 shrink-0 shadow">
+        <div class="w-full h-full rounded-[10px] bg-gov-navyDark flex items-center justify-center">
+          <svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 4L6 11.5H30L18 4Z" fill="#FBBF24"/>
+            <rect x="8.5" y="13" width="2.6" height="10" rx="1" fill="#FDE68A"/>
+            <rect x="13.5" y="13" width="2.6" height="10" rx="1" fill="#FDE68A"/>
+            <rect x="19.9" y="13" width="2.6" height="10" rx="1" fill="#FDE68A"/>
+            <rect x="24.9" y="13" width="2.6" height="10" rx="1" fill="#FDE68A"/>
+            <rect x="6" y="24" width="24" height="2.4" rx="1.2" fill="#F59E0B"/>
+            <path d="M7 29.5C10.5 27.8 14.2 31.2 18 29.5C21.8 27.8 25.5 31.2 29 29.5" stroke="#38BDF8" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="min-w-0 flex-1">
+        <h1 class="font-display text-base sm:text-xl font-bold tracking-tight text-white leading-snug">
+          ศาลากลางจังหวัดชุมพร
+        </h1>
+        <p class="text-[11.5px] sm:text-xs text-amber-200/95 font-medium leading-tight mt-0.5">
+          ระบบแผนผังและนำทางภายในอาคาร (ชั้น 1–4)
+        </p>
+        <div class="mt-1.5">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 border border-white/15 text-[9.5px] sm:text-[10px] text-slate-200 leading-tight">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0"></span>
+            <span>ผู้พัฒนา : ปวริศร์ จารึก • พนักงานวิชาการแผนที่ภาพถ่าย</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="bg-white border-b border-slate-200 shadow-sm z-30">
+    <div class="max-w-5xl mx-auto px-3.5 sm:px-6 py-3 space-y-2.5">
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200/90 text-[11.5px] sm:text-xs text-slate-700">
+        <span class="font-display font-bold text-gov-navy inline-flex items-center gap-1 shrink-0">
+          <svg class="w-3.5 h-3.5 text-gov-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          วิธีใช้งาน:
+        </span>
+        <span class="inline-flex items-center gap-1"><span class="w-4 h-4 rounded-full bg-gov-navy text-white text-[10px] font-bold inline-flex items-center justify-center">1</span> ค้นหาหน่วยงานหรือเลือกชั้น</span>
+        <span class="inline-flex items-center gap-1"><span class="w-4 h-4 rounded-full bg-gov-navy text-white text-[10px] font-bold inline-flex items-center justify-center">2</span> เลือกจุดเริ่มต้นบนแผนที่</span>
+        <span class="inline-flex items-center gap-1"><span class="w-4 h-4 rounded-full bg-gov-navy text-white text-[10px] font-bold inline-flex items-center justify-center">3</span> แตะห้องบนแผนผังหรือรายชื่อ เพื่อดูเส้นทางและเบอร์โทรศัพท์ติดต่อ</span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <div class="relative flex-1 min-w-0">
+          <div class="flex items-center bg-slate-50 border-2 border-slate-200 focus-within:border-gov-navy focus-within:bg-white rounded-xl px-3 py-2 transition-all">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 shrink-0 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input id="searchInput" type="text" autocomplete="off"
+              placeholder="พิมพ์ชื่อหน่วยงาน ภารกิจ หรือเบอร์โทร..."
+              class="w-full bg-transparent outline-none text-xs sm:text-sm text-slate-800 placeholder-slate-400" />
+            <button id="btnClearSearch" type="button" class="hidden ml-1.5 p-1 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-200 transition" title="ล้างคำค้นหา">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <div id="searchDropdown" class="hidden absolute left-0 right-0 mt-1.5 bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden max-h-80 overflow-y-auto z-50"></div>
+        </div>
+
+        <button id="btnResetAllTop" type="button"
+          class="shrink-0 min-h-[40px] inline-flex items-center gap-1 px-2.5 sm:px-3 py-2 rounded-xl text-[11px] sm:text-xs font-display font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 transition"
+          title="ล้างการค้นหาและรีเซ็ต">
+          <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          <span>ล้างการค้นหา</span>
+        </button>
+      </div>
+
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pt-0.5">
+        <span class="text-[11px] sm:text-xs font-display font-semibold text-slate-500 shrink-0">จุดติดต่อยอดนิยม:</span>
+        <div id="quickChipsContainer" class="flex items-center gap-1.5"></div>
+      </div>
+    </div>
+  </section>
+
+  <main class="flex-1 max-w-5xl w-full mx-auto px-3.5 sm:px-6 py-4 space-y-4">
+
+    <section class="bg-white rounded-2xl border border-slate-200 p-3.5 sm:p-4 shadow-sm space-y-3">
+      <div id="floorTabsContainer" class="grid grid-cols-4 gap-1.5 bg-slate-100 p-1 rounded-xl"></div>
+      <div>
+        <h2 id="activeFloorTitle" class="font-display text-sm sm:text-base font-bold text-slate-800">
+          ชั้น 1 • ศูนย์บริการประชาชน การเงิน และงานบริการพื้นฐาน
+        </h2>
+        <p id="activeFloorDesc" class="text-xs text-slate-500 mt-0.5">
+          แบ่งพื้นที่เป็น โซน A (ทางเข้าหลัก), โซน B (ที่จอดรถทางเข้า), โซน C (ทางเข้าหลัง) และ โซน D (โรงจอดรถส่วนราชการ)
+        </p>
+      </div>
+    </section>
+
+    <section id="mapSection" class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden scroll-mt-3">
+      <div class="p-3 sm:p-4 bg-slate-50 border-b border-slate-200 space-y-2.5">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-2 bg-emerald-50/90 border border-emerald-200 rounded-xl px-3 py-2">
+          <label for="startPointSelect" class="flex items-center gap-2 text-xs font-display font-bold text-emerald-900 shrink-0">
+            <span class="relative flex h-2.5 w-2.5">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-600"></span>
+            </span>
+            <span id="startPointLabel">จุดเริ่มต้น (คุณอยู่ที่นี่ • ชั้น 1):</span>
+          </label>
+          <select id="startPointSelect"
+            class="w-full bg-white border border-emerald-300 focus:border-gov-navy rounded-lg px-2.5 py-1.5 text-xs sm:text-sm font-display font-semibold text-slate-800 outline-none cursor-pointer">
+          </select>
+        </div>
+
+        <div class="flex items-center justify-between gap-2">
+          <div class="inline-flex items-center gap-1 bg-white border border-slate-200 rounded-xl p-1 shadow-xs">
+            <button id="btnZoomOut" type="button" class="w-8 h-7 rounded-lg hover:bg-slate-100 text-slate-700 font-bold text-sm flex items-center justify-center" title="ย่อแผนที่">−</button>
+            <span id="zoomLevelLabel" class="px-2 text-xs font-display font-bold text-slate-700 min-w-[46px] text-center">100%</span>
+            <button id="btnZoomIn" type="button" class="w-8 h-7 rounded-lg hover:bg-slate-100 text-slate-700 font-bold text-sm flex items-center justify-center" title="ขยายแผนที่">+</button>
+            <button id="btnZoomReset" type="button" class="px-2.5 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-display text-[11px] font-semibold">พอดีจอ</button>
+          </div>
+
+          <button id="btnClearRoute" type="button"
+            class="hidden inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 font-display text-xs font-semibold transition">
+            <span>✕ ล้างเส้นทาง</span>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 text-[11px] pt-0.5">
+          <div class="flex items-center gap-1.5 font-display font-semibold text-amber-900">
+            <span class="w-3 h-3 rounded-xs bg-amber-300 border border-amber-600 shrink-0"></span>
+            <span>โซน A : ทางเข้าหลัก (ตรงข้ามเสาธง)</span>
+          </div>
+          <div class="flex items-center gap-1.5 font-display font-semibold text-sky-900">
+            <span class="w-3 h-3 rounded-xs bg-sky-300 border border-sky-600 shrink-0"></span>
+            <span>โซน B : ที่จอดรถ (ประตูศาลากลาง)</span>
+          </div>
+          <div class="flex items-center gap-1.5 font-display font-semibold text-violet-900">
+            <span class="w-3 h-3 rounded-xs bg-violet-300 border border-violet-600 shrink-0"></span>
+            <span>โซน C : ทางเข้าหลัง (โรงจอดรถ จยย.)</span>
+          </div>
+          <div class="flex items-center gap-1.5 font-display font-semibold text-emerald-900">
+            <span class="w-3 h-3 rounded-xs bg-emerald-300 border border-emerald-600 shrink-0"></span>
+            <span>โซน D : โรงจอดรถส่วนราชการ</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="mapScrollViewport" class="w-full overflow-x-auto bg-white p-1.5 sm:p-3">
+        <div id="svgZoomWrapper" style="width: 100%; transition: width 0.18s ease;">
+          <div id="svgPlanContainer" class="w-full rounded-xl border border-slate-200 bg-white overflow-hidden"></div>
+        </div>
+      </div>
+
+      <div class="px-3.5 py-2.5 bg-slate-50 border-t border-slate-200 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11px] text-slate-600">
+        <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span> จุดเริ่มต้น</span>
+        <span class="inline-flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-red-600 inline-block"></span> จุดหมายปลายทาง</span>
+        <span class="inline-flex items-center gap-1.5"><span class="w-5 border-t-[3px] border-dashed border-amber-600 inline-block"></span> เส้นทางเดิน</span>
+        <span class="inline-flex items-center gap-1"><span class="px-1.5 py-0.2 rounded bg-blue-100 text-blue-900 border border-blue-400 font-bold text-[10px]">⇅ ลิฟต์ + ☰ บันได</span> ลิฟต์และบันไดติดลิฟต์</span>
+        <span class="inline-flex items-center gap-1"><span class="px-1.5 py-0.2 rounded bg-slate-200 text-slate-800 border border-slate-400 font-bold text-[10px]">สุขา + ☰ บันได</span> ห้องสุขาและบันได 4 มุม</span>
+        <span class="inline-flex items-center gap-1"><span class="px-1.5 py-0.2 rounded bg-teal-700 text-white font-bold text-[10px]">ทางเข้าย่อย</span> ทางเข้าด้านข้าง 4 มุม</span>
+        <span class="inline-flex items-center gap-1"><span class="px-1.5 py-0.2 rounded bg-rose-100 text-rose-900 border border-rose-400 font-bold text-[10px]">ห้องประชุม</span> ตรงข้ามลิฟต์</span>
+      </div>
+    </section>
+
+    <section id="navigationCard" class="hidden bg-white rounded-2xl border-2 border-gov-amber shadow-md overflow-hidden"></section>
+
+    <section class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div class="px-4 py-3 bg-gov-navy text-white flex flex-wrap items-center justify-between gap-2">
+        <h3 id="sidebarFloorTitle" class="font-display text-sm sm:text-base font-bold">
+          รายชื่อหน่วยงานในชั้น 1
+        </h3>
+        <span id="sidebarFloorBadge" class="text-xs font-display font-semibold px-2.5 py-0.5 rounded-full bg-amber-400 text-gov-navy">
+          0 หน่วยงาน
+        </span>
+      </div>
+
+      <div id="zoneFilterBar" class="px-3 py-2 bg-slate-50 border-b border-slate-200 flex items-center gap-1.5 overflow-x-auto no-scrollbar"></div>
+
+      <div id="sidebarRoomList" class="divide-y divide-slate-100"></div>
+    </section>
+
+  </main>
+
+  <footer class="mt-6 bg-white border-t border-slate-200 py-4">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
+      <p class="font-display font-medium text-slate-700 text-center sm:text-left">
+        ศาลากลางจังหวัดชุมพร • ระบบแผนผังและนำทางภายในอาคาร (ชั้น 1–4)
+      </p>
+      <div class="text-center sm:text-right text-slate-600 font-medium leading-relaxed">
+        <div>ผู้พัฒนา นายปวริศร์ จารึก พนักงานวิชาการแผนที่ภาพถ่าย</div>
+        <div>สำนักงานโยธาธิการและผังเมืองจังหวัดชุมพร</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function getFloorStartOptions(floor) {
+      if (floor === 1) {
+        return [
+          { id: 'ent_main',  nodeId: 'f1_ent_main',    kind: 'entrance', zone: 'A', label: 'โซน A : ประตูทางเข้าหลัก (ตรงข้ามเสาธง)' },
+          { id: 'ent_back',  nodeId: 'f1_ent_back',    kind: 'entrance', zone: 'C', label: 'โซน C : ประตูทางเข้าหลัง (โรงจอดรถ จยย.)' },
+          { id: 'lift_main', nodeId: 'f1_lift_main_j', kind: 'lift',     zone: 'A', label: 'โซน A : โถงลิฟต์หลัก / บันไดติดลิฟต์ (ชั้น 1)' },
+          { id: 'lift_back', nodeId: 'f1_lift_back_j', kind: 'lift',     zone: 'C', label: 'โซน C : โถงลิฟต์หลัง / บันไดติดลิฟต์ (ชั้น 1)' },
+          { id: 'sub_br',    nodeId: 'f1_sub_br',      kind: 'sub',      zone: 'AD', label: 'ทางเข้าย่อยมุมโซน A–D (ข้างสุขา ฝั่งโรงจอดรถส่วนราชการ)' },
+          { id: 'sub_bl',    nodeId: 'f1_sub_bl',      kind: 'sub',      zone: 'AB', label: 'ทางเข้าย่อยมุมโซน A–B (ข้างสุขา ฝั่งที่จอดรถทางเข้า)' },
+          { id: 'sub_tl',    nodeId: 'f1_sub_tl',      kind: 'sub',      zone: 'BC', label: 'ทางเข้าย่อยมุมโซน B–C (ข้างสุขา ฝั่งที่จอดรถทางเข้า)' },
+          { id: 'sub_tr',    nodeId: 'f1_sub_tr',      kind: 'sub',      zone: 'CD', label: 'ทางเข้าย่อยมุมโซน C–D (ข้างสุขา ฝั่งโรงจอดรถส่วนราชการ)' }
+        ];
+      }
+      return [
+        { id: 'lift_main', nodeId: `f${floor}_lift_main_j`, kind: 'lift', zone: 'A',  label: `โซน A : โถงลิฟต์หลัก / บันไดติดลิฟต์ (ชั้น ${floor})` },
+        { id: 'lift_back', nodeId: `f${floor}_lift_back_j`, kind: 'lift', zone: 'C',  label: `โซน C : โถงลิฟต์หลัง / บันไดติดลิฟต์ (ชั้น ${floor})` },
+        { id: 'sub_br',    nodeId: `f${floor}_sub_br`,      kind: 'sub',  zone: 'AD', label: `ทางเข้าย่อย / บันไดมุมโซน A–D (ข้างสุขา)` },
+        { id: 'sub_bl',    nodeId: `f${floor}_sub_bl`,      kind: 'sub',  zone: 'AB', label: `ทางเข้าย่อย / บันไดมุมโซน A–B (ข้างสุขา)` },
+        { id: 'sub_tl',    nodeId: `f${floor}_sub_tl`,      kind: 'sub',  zone: 'BC', label: `ทางเข้าย่อย / บันไดมุมโซน B–C (ข้างสุขา)` },
+        { id: 'sub_tr',    nodeId: `f${floor}_sub_tr`,      kind: 'sub',  zone: 'CD', label: `ทางเข้าย่อย / บันไดมุมโซน C–D (ข้างสุขา)` }
+      ];
+    }
+
+    const FLOOR_META = {
+      1: {
+        floor: 1,
+        title: 'ชั้น 1 • ศูนย์บริการประชาชน การเงิน และงานบริการพื้นฐาน',
+        desc: 'แบ่งพื้นที่เป็น โซน A (ทางเข้าหลัก), โซน B (ที่จอดรถทางเข้า), โซน C (ทางเข้าหลัง) และ โซน D (โรงจอดรถส่วนราชการ)'
+      },
+      2: {
+        floor: 2,
+        title: 'ชั้น 2 • คณะผู้บริหารจังหวัด สำนักงานจังหวัด และปกครอง',
+        desc: 'ห้องประชุมเกาะลังกาจิว (โซน A ตรงข้ามลิฟต์หลัก) และห้องประชุมเกาะมัตตรา (โซน C ตรงข้ามลิฟต์หลัง)'
+      },
+      3: {
+        floor: 3,
+        title: 'ชั้น 3 • กลุ่มงานเศรษฐกิจ การค้า เกษตร โยธาฯ และแรงงาน',
+        desc: 'ห้องประชุมเกาะทองหลาง (โซน A ตรงข้ามลิฟต์หลัก) และห้องประชุมเกาะพิทักษ์ (โซน C ตรงข้ามลิฟต์หลัง)'
+      },
+      4: {
+        floor: 4,
+        title: 'ชั้น 4 • ท่องเที่ยว ทรัพยากรฯ ศึกษาธิการ ยุติธรรม กกต. และความมั่นคง',
+        desc: 'ศูนย์ปฏิบัติการจังหวัดชุมพร (โซน A ตรงข้ามลิฟต์หลัก) และห้องประชุมเกาะเสม็ด (โซน C ติดโถงลิฟต์หลัง)'
+      }
+    };
+
+    const GEOM = {
+      corners: {
+        tl: { x: 80,  y: 52,  w: 136, h: 118, label: 'มุมโซน B–C' },
+        tr: { x: 784, y: 52,  w: 136, h: 118, label: 'มุมโซน C–D' },
+        bl: { x: 80,  y: 690, w: 136, h: 118, label: 'มุมโซน A–B' },
+        br: { x: 784, y: 690, w: 136, h: 118, label: 'มุมโซน A–D' }
+      },
+      cores: {
+        top: {
+          x: 428, y: 266, w: 144, h: 72,
+          lift:  { x: 433, y: 271, w: 72, h: 62 },
+          stair: { x: 509, y: 271, w: 58, h: 62 },
+          junction: { x: 500, y: 228 }
+        },
+        bottom: {
+          x: 428, y: 522, w: 144, h: 72,
+          lift:  { x: 433, y: 527, w: 72, h: 62 },
+          stair: { x: 509, y: 527, w: 58, h: 62 },
+          junction: { x: 500, y: 632 }
+        }
+      },
+      wings: {
+        bottom_right: { x1: 574, x2: 784, y: 690, h: 118, corrY: 632, doorY: 690 },
+        bottom_left:  { x1: 216, x2: 426, y: 690, h: 118, corrY: 632, doorY: 690 },
+        left_side:    { y1: 170, y2: 690, x: 80,  w: 136, corrX: 236, doorX: 216 },
+        top_left:     { x1: 216, x2: 426, y: 52,  h: 118, corrY: 228, doorY: 170 },
+        top_right:    { x1: 574, x2: 784, y: 52,  h: 118, corrY: 228, doorY: 170 },
+        right_side:   { y1: 170, y2: 690, x: 784, w: 136, corrX: 764, doorX: 784 },
+        opp_bottom:   { x: 428, y: 690, w: 144, h: 118, corrY: 632, doorY: 690 },
+        opp_top:      { x: 428, y: 52,  w: 144, h: 118, corrY: 228, doorY: 170 }
+      }
+    };
+
+    const RAW_FLOOR_LAYOUTS = {
+      1: {
+        bottom_right: [
+          {
+            id: 'f1_post',
+            name: 'ที่ทำการไปรษณีย์ (จุดบริการศาลากลางจังหวัดชุมพร)',
+            shortName: 'ที่ทำการไปรษณีย์',
+            mapLines: ['ที่ทำการ', 'ไปรษณีย์'],
+            phone: '-',
+            keywords: ['ไปรษณีย์', 'ส่งจดหมาย', 'พัสดุ', 'EMS']
+          },
+          {
+            id: 'f1_prd',
+            name: 'สำนักงานประชาสัมพันธ์จังหวัดชุมพร',
+            shortName: 'สำนักงานประชาสัมพันธ์จังหวัดชุมพร',
+            mapLines: ['สำนักงาน', 'ประชา', 'สัมพันธ์', 'จังหวัด'],
+            phone: '0-7765-8077',
+            keywords: ['ประชาสัมพันธ์', 'ปชส', 'ข่าวสาร', 'สื่อมวลชน']
+          },
+          {
+            id: 'f1_ceremony',
+            name: 'ห้องพระราชพิธี ศาลากลางจังหวัดชุมพร',
+            shortName: 'ห้องพระราชพิธี',
+            mapLines: ['ห้อง', 'พระราช', 'พิธี'],
+            phone: '-',
+            keywords: ['พระราชพิธี', 'พิธีการ', 'ประกวดราคา']
+          },
+          {
+            id: 'f1_radio',
+            name: 'ศูนย์วิทยุสื่อสารจังหวัดชุมพร',
+            shortName: 'ศูนย์วิทยุสื่อสาร',
+            mapLines: ['ศูนย์วิทยุ', 'สื่อสาร'],
+            phone: '-',
+            keywords: ['วิทยุ', 'สื่อสาร', 'ศูนย์วิทยุ', 'ห้องวิทยุ', 'แจ้งเหตุ']
+          }
+        ],
+        bottom_left: [
+          {
+            id: 'f1_treasury',
+            name: 'สำนักงานคลังจังหวัดชุมพร',
+            shortName: 'สำนักงานคลังจังหวัดชุมพร',
+            mapLines: ['สำนักงานคลังจังหวัดชุมพร'],
+            phone: '0-7751-1207',
+            keywords: ['คลัง', 'การเงิน', 'บัตรสวัสดิการ', 'เบิกจ่าย', 'บัญชี']
+          }
+        ],
+        left_side: [
+          {
+            id: 'f1_nso',
+            name: 'สำนักงานสถิติจังหวัดชุมพร',
+            shortName: 'สำนักงานสถิติจังหวัดชุมพร',
+            mapLines: ['สำนักงานสถิติ', 'จังหวัดชุมพร'],
+            phone: '0-7751-1701',
+            keywords: ['สถิติ', 'สำมะโน', 'ข้อมูลจังหวัด', 'ตัวเลข']
+          },
+          {
+            id: 'f1_msdhs_left',
+            name: 'สำนักงานพัฒนาสังคมและความมั่นคงของมนุษย์จังหวัดชุมพร',
+            shortName: 'สำนักงานพัฒนาสังคมฯ (พมจ.)',
+            mapLines: ['สำนักงานพัฒนาสังคม', 'และความมั่นคง', 'ของมนุษย์', 'จังหวัดชุมพร'],
+            phone: '0-7751-1710',
+            keywords: ['พมจ', 'พัฒนาสังคม', 'ความมั่นคงของมนุษย์', 'ผู้พิการ', 'ผู้สูงอายุ', 'เงินอุดหนุนเด็ก']
+          }
+        ],
+        top_left: [
+          {
+            id: 'f1_msdhs_top',
+            name: 'ศูนย์บริการคนพิการจังหวัดชุมพร (สำนักงานพัฒนาสังคมและความมั่นคงของมนุษย์จังหวัดชุมพร)',
+            shortName: 'ศูนย์บริการคนพิการจังหวัดชุมพร',
+            mapLines: ['ศูนย์บริการ', 'คนพิการ', 'จังหวัดชุมพร'],
+            phone: '0-7751-1710',
+            keywords: ['คนพิการ', 'ศูนย์บริการคนพิการ', 'พม', 'พมจ', 'พัฒนาสังคม', 'สวัสดิการ']
+          },
+          {
+            id: 'f1_culture',
+            name: 'สำนักงานวัฒนธรรมจังหวัดชุมพร',
+            shortName: 'สำนักงานวัฒนธรรมจังหวัดชุมพร',
+            mapLines: ['สำนักงาน', 'วัฒนธรรม', 'จังหวัดชุมพร'],
+            phone: '0-7761-3648',
+            keywords: ['วัฒนธรรม', 'ประเพณี', 'ศิลปะ', 'ศาสนา']
+          }
+        ],
+        top_right: [
+          {
+            id: 'f1_dla',
+            name: 'สำนักงานส่งเสริมการปกครองท้องถิ่นจังหวัดชุมพร',
+            shortName: 'สำนักงานส่งเสริมการปกครองท้องถิ่นจังหวัดชุมพร',
+            mapLines: ['สำนักงานส่งเสริมการปกครอง', 'ท้องถิ่นจังหวัดชุมพร'],
+            phone: '0-7750-2133, 0-7750-2487',
+            keywords: ['ท้องถิ่น', 'สถจ', 'อบต', 'เทศบาล', 'อบจ']
+          }
+        ],
+        right_side: [
+          {
+            id: 'f1_ddpm',
+            name: 'สำนักงานป้องกันและบรรเทาสาธารณภัยจังหวัดชุมพร',
+            shortName: 'สำนักงาน ปภ. จังหวัดชุมพร',
+            mapLines: ['สำนักงานป้องกัน', 'และบรรเทา', 'สาธารณภัย', 'จังหวัดชุมพร'],
+            phone: '0-7750-2257, 0-7750-3230',
+            keywords: ['ปภ', 'ภัยพิบัติ', 'น้ำท่วม', 'บรรเทาสาธารณภัย', 'ฉุกเฉิน']
+          },
+          {
+            id: 'f1_ktb',
+            name: 'ธนาคารกรุงไทย จำกัด (มหาชน) สาขาย่อยศาลากลางจังหวัดชุมพร',
+            shortName: 'ธนาคารกรุงไทย จำกัด (มหาชน)',
+            mapLines: ['ธนาคารกรุงไทย', 'จำกัด (มหาชน)', 'สาขาย่อยศาลากลาง'],
+            phone: '-',
+            keywords: ['ธนาคาร', 'กรุงไทย', 'ฝากถอน', 'โอนเงิน', 'ATM']
+          },
+          {
+            id: 'f1_damrong',
+            name: 'ศูนย์ดำรงธรรมจังหวัดชุมพร',
+            shortName: 'ศูนย์ดำรงธรรมจังหวัดชุมพร',
+            mapLines: ['ศูนย์ดำรงธรรม', 'จังหวัดชุมพร'],
+            phone: '1567, 0-7750-2101',
+            keywords: ['ศูนย์ดำรงธรรม', 'ร้องเรียน', 'ร้องทุกข์', '1567', 'จุดบริการประชาชน']
+          }
+        ]
+      },
+      2: {
+        bottom_right: [
+          {
+            id: 'f2_governor',
+            name: 'ห้องปฏิบัติราชการผู้ว่าราชการจังหวัดชุมพร',
+            shortName: 'ห้องผู้ว่าราชการจังหวัดชุมพร',
+            mapLines: ['ห้องผู้ว่า', 'ราชการ', 'จังหวัดชุมพร'],
+            phone: '0-7750-4009',
+            keywords: ['ผู้ว่า', 'ผู้ว่าราชการจังหวัด', 'ผู้บริหาร']
+          },
+          {
+            id: 'f2_vice_gov',
+            name: 'ห้องปฏิบัติราชการรองผู้ว่าราชการจังหวัดชุมพร',
+            shortName: 'ห้องรองผู้ว่าราชการจังหวัดชุมพร',
+            mapLines: ['ห้องรองผู้ว่า', 'ราชการ', 'จังหวัดชุมพร'],
+            phone: '0-7750-4009',
+            keywords: ['รองผู้ว่า', 'รองผู้ว่าราชการ', 'ผู้บริหาร']
+          }
+        ],
+        opp_bottom: [
+          {
+            id: 'f2_langkachio',
+            name: 'ห้องประชุมเกาะลังกาจิว',
+            shortName: 'ห้องประชุมเกาะลังกาจิว',
+            mapLines: ['ห้องประชุม', 'เกาะลังกาจิว'],
+            phone: '-',
+            isMeeting: true,
+            keywords: ['ห้องประชุม', 'ลังกาจิว', 'เกาะลังกาจิว', 'ประชุมชั้น 2']
+          }
+        ],
+        bottom_left: [
+          {
+            id: 'f2_dopa',
+            name: 'ที่ทำการปกครองจังหวัดชุมพร',
+            shortName: 'ที่ทำการปกครองจังหวัดชุมพร',
+            mapLines: ['ที่ทำการปกครองจังหวัดชุมพร'],
+            phone: '0-7750-3034',
+            keywords: ['ปกครอง', 'ที่ทำการปกครองจังหวัด', 'ที่ทำการจังหวัด', 'ปลัดจังหวัด', 'ปืน', 'มูลนิธิ', 'อำเภอ']
+          }
+        ],
+        left_side: [
+          {
+            id: 'f2_volunteer_cmd',
+            name: 'ศูนย์อำนวยการจิตอาสาพระราชทานจังหวัดชุมพร',
+            shortName: 'ศูนย์อำนวยการจิตอาสาพระราชทาน',
+            mapLines: ['ศูนย์อำนวยการ', 'จิตอาสาพระราชทาน', 'จังหวัดชุมพร'],
+            phone: '-',
+            keywords: ['จิตอาสา', 'ศูนย์อำนวยการจิตอาสา', 'พระราชทาน']
+          },
+          {
+            id: 'f2_clerk',
+            name: 'กลุ่มงานการเงินและบัญชี (เสมียนตราจังหวัดชุมพร) ที่ทำการปกครองจังหวัดชุมพร',
+            shortName: 'เสมียนตราจังหวัดชุมพร',
+            mapLines: ['เสมียนตรา', 'จังหวัดชุมพร'],
+            phone: '0-7750-3034',
+            keywords: ['เสมียนตรา', 'การเงินปกครอง', 'บัญชี']
+          },
+          {
+            id: 'f2_reg',
+            name: 'กลุ่มงานทะเบียนและบัตร ที่ทำการปกครองจังหวัดชุมพร (สำนักงานทะเบียนจังหวัดชุมพร)',
+            shortName: 'สำนักงานทะเบียนจังหวัดชุมพร',
+            mapLines: ['สำนักงานทะเบียน', 'จังหวัดชุมพร'],
+            phone: '-',
+            keywords: ['ทะเบียน', 'สำนักงานทะเบียน', 'บัตรประชาชน', 'ทะเบียนราษฎร']
+          }
+        ],
+        top_left: [
+          {
+            id: 'f2_defense',
+            name: 'กลุ่มงานความมั่นคง ที่ทำการปกครองจังหวัดชุมพร (ป้องกันจังหวัดชุมพร)',
+            shortName: 'กลุ่มงานความมั่นคง (ป้องกันจังหวัด)',
+            mapLines: ['กลุ่มงานความมั่นคง', '(ป้องกันจังหวัดชุมพร)'],
+            phone: '0-7750-3034',
+            keywords: ['ป้องกันจังหวัด', 'อส', 'ความมั่นคง', 'รักษาความสงบ']
+          }
+        ],
+        opp_top: [
+          {
+            id: 'f2_mattra',
+            name: 'ห้องประชุมเกาะมัตตรา',
+            shortName: 'ห้องประชุมเกาะมัตตรา',
+            mapLines: ['ห้องประชุม', 'เกาะมัตตรา'],
+            phone: '-',
+            isMeeting: true,
+            keywords: ['ห้องประชุม', 'เกาะมัตตรา', 'มัตตรา', 'ประชุมชั้น 2']
+          }
+        ],
+        top_right: [
+          {
+            id: 'f2_thai_mecc',
+            name: 'ศูนย์อำนวยการรักษาผลประโยชน์ของชาติทางทะเลจังหวัดชุมพร',
+            shortName: 'ศรชล. จังหวัดชุมพร',
+            mapLines: ['ศูนย์อำนวยการรักษา', 'ผลประโยชน์ของชาติทางทะเล', 'จังหวัดชุมพร (ศรชล.)'],
+            phone: '-',
+            keywords: ['ศรชล', 'ทางทะเล', 'ประมง', 'เรือ', 'ชายฝั่ง']
+          }
+        ],
+        right_side: [
+          {
+            id: 'f2_mailroom',
+            name: 'ห้องรับ-ส่งหนังสือ (งานสารบรรณกลาง สำนักงานจังหวัดชุมพร)',
+            shortName: 'ห้องรับ-ส่งหนังสือ (สารบรรณกลาง)',
+            mapLines: ['ห้องรับ-ส่งหนังสือ', '(สารบรรณกลาง)'],
+            phone: '0-7751-1551, 0-7751-1468',
+            keywords: ['รับส่งหนังสือ', 'สารบรรณ', 'ลงรับหนังสือ', 'ส่งเอกสาร']
+          },
+          {
+            id: 'f2_volunteer_coord',
+            name: 'ศูนย์ประสานงานจิตอาสาพระราชทานจังหวัดชุมพร',
+            shortName: 'ศูนย์ประสานงานจิตอาสาพระราชทาน',
+            mapLines: ['ศูนย์ประสานงาน', 'จิตอาสาพระราชทาน', 'จังหวัดชุมพร'],
+            phone: '-',
+            keywords: ['ประสานงานจิตอาสา', 'จิตอาสา']
+          },
+          {
+            id: 'f2_prov_office',
+            name: 'สำนักงานจังหวัดชุมพร',
+            shortName: 'สำนักงานจังหวัดชุมพร',
+            mapLines: ['สำนักงานจังหวัด', 'ชุมพร'],
+            phone: '0-7751-1551, 0-7751-1468',
+            keywords: ['สำนักงานจังหวัด', 'สนจ', 'ยุทธศาสตร์', 'อำนวยการ']
+          }
+        ]
+      },
+      3: {
+        bottom_right: [
+          {
+            id: 'f3_dpt_tech',
+            name: 'สำนักงานโยธาธิการและผังเมืองจังหวัดชุมพร (กลุ่มงานวิชาการผังเมือง)',
+            shortName: 'สำนักงานโยธาฯ (วิชาการผังเมือง)',
+            mapLines: ['สำนักงานโยธาฯ', '(กลุ่มงาน', 'วิชาการ', 'ผังเมือง)'],
+            phone: '0-7750-1800, 0-7750-1254',
+            keywords: ['โยธา', 'โยธาธิการและผังเมือง', 'กลุ่มงานวิชาการผังเมือง', 'วิชาการผังเมือง', 'ผังเมือง', 'ผังสี']
+          },
+          {
+            id: 'f3_energy',
+            name: 'สำนักงานพลังงานจังหวัดชุมพร',
+            shortName: 'สำนักงานพลังงานจังหวัดชุมพร',
+            mapLines: ['สำนักงาน', 'พลังงาน', 'จังหวัด', 'ชุมพร'],
+            phone: '0-7765-8356',
+            keywords: ['พลังงาน', 'โซลาร์เซลล์', 'น้ำมัน', 'ก๊าซ']
+          },
+          {
+            id: 'f3_labour',
+            name: 'สำนักงานแรงงานจังหวัดชุมพร',
+            shortName: 'สำนักงานแรงงานจังหวัดชุมพร',
+            mapLines: ['สำนักงาน', 'แรงงาน', 'จังหวัด', 'ชุมพร'],
+            phone: '0-7751-1176, 0-7751-1626',
+            keywords: ['แรงงาน', 'หางาน', 'ค่าจ้าง', 'ต่างด้าว', 'สวัสดิการแรงงาน']
+          }
+        ],
+        opp_bottom: [
+          {
+            id: 'f3_thonglang',
+            name: 'ห้องประชุมเกาะทองหลาง',
+            shortName: 'ห้องประชุมเกาะทองหลาง',
+            mapLines: ['ห้องประชุม', 'เกาะทองหลาง'],
+            phone: '-',
+            isMeeting: true,
+            keywords: ['ห้องประชุม', 'เกาะทองหลาง', 'ทองหลาง', 'ประชุมชั้น 3']
+          }
+        ],
+        bottom_left: [
+          {
+            id: 'f3_dpt',
+            name: 'สำนักงานโยธาธิการและผังเมืองจังหวัดชุมพร',
+            shortName: 'สำนักงานโยธาธิการและผังเมืองจังหวัดชุมพร',
+            mapLines: ['สำนักงานโยธาธิการ', 'และผังเมืองจังหวัดชุมพร'],
+            phone: '0-7750-1800, 0-7750-1254',
+            keywords: ['โยธา', 'โยธาธิการ', 'ผังเมือง', 'ก่อสร้าง', 'ควบคุมอาคาร']
+          }
+        ],
+        left_side: [
+          {
+            id: 'f3_commerce_left',
+            name: 'สำนักงานพาณิชย์จังหวัดชุมพร (โซน B)',
+            shortName: 'สำนักงานพาณิชย์จังหวัดชุมพร',
+            mapLines: ['สำนักงานพาณิชย์', 'จังหวัดชุมพร'],
+            phone: '0-7751-1210',
+            keywords: ['พาณิชย์', 'การค้าภายใน', 'พัฒนาธุรกิจการค้า', 'ทะเบียนพาณิชย์', 'ราคาสินค้า']
+          },
+          {
+            id: 'f3_oic',
+            name: 'สำนักงานคณะกรรมการกำกับและส่งเสริมการประกอบธุรกิจประกันภัยจังหวัดชุมพร (คปภ.)',
+            shortName: 'สำนักงาน คปภ. จังหวัดชุมพร',
+            mapLines: ['สำนักงานคณะกรรมการ', 'กำกับและส่งเสริม', 'การประกอบธุรกิจ', 'ประกันภัย (คปภ.)'],
+            phone: '0-7750-4829',
+            keywords: ['คปภ', 'ประกันภัย', 'พรบ', 'เคลมประกัน']
+          }
+        ],
+        top_left: [
+          {
+            id: 'f3_commerce_top',
+            name: 'สำนักงานพาณิชย์จังหวัดชุมพร (โซน C)',
+            shortName: 'สำนักงานพาณิชย์จังหวัดชุมพร',
+            mapLines: ['สำนักงาน', 'พาณิชย์', 'จังหวัดชุมพร'],
+            phone: '0-7751-1210',
+            keywords: ['พาณิชย์', 'ส่งออก', 'GI', 'การค้า']
+          },
+          {
+            id: 'f3_sassadee',
+            name: 'สำนักงานสัสดีจังหวัดชุมพร',
+            shortName: 'สำนักงานสัสดีจังหวัดชุมพร',
+            mapLines: ['สำนักงาน', 'สัสดี', 'จังหวัดชุมพร'],
+            phone: '-',
+            keywords: ['สัสดี', 'เกณฑ์ทหาร', 'รด', 'นักศึกษาวิชาทหาร', 'ทหาร']
+          }
+        ],
+        opp_top: [
+          {
+            id: 'f3_phithak',
+            name: 'ห้องประชุมเกาะพิทักษ์',
+            shortName: 'ห้องประชุมเกาะพิทักษ์',
+            mapLines: ['ห้องประชุม', 'เกาะพิทักษ์'],
+            phone: '-',
+            isMeeting: true,
+            keywords: ['ห้องประชุม', 'เกาะพิทักษ์', 'พิทักษ์', 'ประชุมชั้น 3']
+          }
+        ],
+        top_right: [
+          {
+            id: 'f3_agri',
+            name: 'สำนักงานเกษตรและสหกรณ์จังหวัดชุมพร',
+            shortName: 'สำนักงานเกษตรและสหกรณ์จังหวัดชุมพร',
+            mapLines: ['สำนักงานเกษตรและสหกรณ์', 'จังหวัดชุมพร'],
+            phone: '0-7750-6381, 0-7750-6989',
+            keywords: ['เกษตร', 'เกษตรและสหกรณ์', 'ประมง', 'ปศุสัตว์']
+          }
+        ],
+        right_side: [
+          {
+            id: 'f3_coop',
+            name: 'สำนักงานสหกรณ์จังหวัดชุมพร',
+            shortName: 'สำนักงานสหกรณ์จังหวัดชุมพร',
+            mapLines: ['สำนักงานสหกรณ์', 'จังหวัดชุมพร'],
+            phone: '-',
+            keywords: ['สหกรณ์', 'กลุ่มเกษตรกร', 'สหกรณ์ออมทรัพย์']
+          },
+          {
+            id: 'f3_cdd',
+            name: 'สำนักงานพัฒนาชุมชนจังหวัดชุมพร',
+            shortName: 'สำนักงานพัฒนาชุมชนจังหวัดชุมพร',
+            mapLines: ['สำนักงาน', 'พัฒนาชุมชน', 'จังหวัดชุมพร'],
+            phone: '0-7763-0637',
+            keywords: ['พัฒนาชุมชน', 'พช', 'OTOP', 'โอทอป', 'กองทุนหมู่บ้าน']
+          }
+        ]
+      },
+      4: {
+        bottom_right: [
+          {
+            id: 'f4_mnre',
+            name: 'สำนักงานทรัพยากรธรรมชาติและสิ่งแวดล้อมจังหวัดชุมพร',
+            shortName: 'สำนักงานทรัพยากรธรรมชาติฯ (ทสจ.)',
+            mapLines: ['สำนักงานทรัพยากร', 'ธรรมชาติและ', 'สิ่งแวดล้อมฯ', '(ทสจ.)'],
+            phone: '0-7751-2166',
+            keywords: ['ทสจ', 'ทรัพยากรธรรมชาติ', 'สิ่งแวดล้อม', 'ป่าไม้', 'น้ำบาดาล']
+          },
+          {
+            id: 'f4_tourism',
+            name: 'สำนักงานการท่องเที่ยวและกีฬาจังหวัดชุมพร',
+            shortName: 'สำนักงานการท่องเที่ยวและกีฬาจังหวัดชุมพร',
+            mapLines: ['สำนักงาน', 'การท่องเที่ยว', 'และกีฬา', 'จังหวัดชุมพร'],
+            phone: '0-7751-1730',
+            keywords: ['ท่องเที่ยว', 'กีฬา', 'มัคคุเทศก์', 'โรงแรม']
+          }
+        ],
+        opp_bottom: [
+          {
+            id: 'f4_poc',
+            name: 'ศูนย์ปฏิบัติการจังหวัดชุมพร',
+            shortName: 'ศูนย์ปฏิบัติการจังหวัดชุมพร',
+            mapLines: ['ศูนย์ปฏิบัติการ', 'จังหวัดชุมพร'],
+            phone: '-',
+            isMeeting: true,
+            keywords: ['ศูนย์ปฏิบัติการ', 'POC', 'วอร์รูม', 'ห้องประชุมชั้น 4']
+          }
+        ],
+        bottom_left: [
+          {
+            id: 'f4_buddhism',
+            name: 'สำนักงานพระพุทธศาสนาจังหวัดชุมพร (ศูนย์เผยแพร่พระพุทธศาสนา)',
+            shortName: 'สำนักงานพระพุทธศาสนาจังหวัดชุมพร',
+            mapLines: ['สำนักงาน', 'พระพุทธ', 'ศาสนา', 'จังหวัด'],
+            phone: '0-7763-0806',
+            keywords: ['พระพุทธศาสนา', 'พศจ', 'วัด', 'ศาสนา', 'ศูนย์เผยแพร่']
+          },
+          {
+            id: 'f4_esa',
+            name: 'สำนักงานเขตพื้นที่การศึกษามัธยมศึกษาสุราษฎร์ธานี ชุมพร',
+            shortName: 'สพม. สุราษฎร์ธานี ชุมพร',
+            mapLines: ['สำนักงาน', 'เขตพื้นที่', 'การศึกษาฯ', '(สพม.)'],
+            phone: '-',
+            keywords: ['เขตพื้นที่การศึกษา', 'สพม', 'สุราษฎร์', 'มัธยม', 'โรงเรียน']
+          },
+          {
+            id: 'f4_semarak',
+            name: 'ศูนย์เสมารักษ์ สำนักงานศึกษาธิการจังหวัดชุมพร',
+            shortName: 'ศูนย์เสมารักษ์ (ศธจ.ชุมพร)',
+            mapLines: ['ศูนย์', 'เสมารักษ์', '(ศธจ.', 'ชุมพร)'],
+            phone: '0-7761-3417',
+            keywords: ['เสมารักษ์', 'ศูนย์เสมารักษ์', 'สารวัตรนักเรียน', 'ศึกษาธิการ']
+          }
+        ],
+        left_side: [
+          {
+            id: 'f4_frd',
+            name: 'สำนักงานกองทุนฟื้นฟูและพัฒนาเกษตรกร สาขาจังหวัดชุมพร',
+            shortName: 'สำนักงานกองทุนฟื้นฟูและพัฒนาเกษตรกร',
+            mapLines: ['สำนักงานกองทุน', 'ฟื้นฟูและพัฒนา', 'เกษตรกร', 'สาขาจังหวัดชุมพร'],
+            phone: '0-7750-6140',
+            keywords: ['กองทุนฟื้นฟู', 'หนี้เกษตรกร', 'เกษตรกร']
+          },
+          {
+            id: 'f4_forensic',
+            name: 'พิสูจน์หลักฐานจังหวัดชุมพร',
+            shortName: 'พิสูจน์หลักฐานจังหวัดชุมพร',
+            mapLines: ['พิสูจน์หลักฐาน', 'จังหวัดชุมพร'],
+            phone: '0-7765-8306, 0-7765-8307',
+            keywords: ['พิสูจน์หลักฐาน', 'ตำรวจ', 'ตรวจลายนิ้วมือ', 'นิติวิทยาศาสตร์']
+          }
+        ],
+        top_left: [
+          {
+            id: 'f4_isoc',
+            name: 'กองอำนวยการรักษาความมั่นคงภายในจังหวัดชุมพร',
+            shortName: 'กอ.รมน. จังหวัดชุมพร',
+            mapLines: ['กอ.รมน.', 'จังหวัดชุมพร'],
+            phone: '0-7750-1665',
+            keywords: ['กอ.รมน', 'ความมั่นคง', 'ทหาร']
+          },
+          {
+            id: 'f4_koh_samed',
+            name: 'ห้องประชุมเกาะเสม็ด',
+            shortName: 'ห้องประชุมเกาะเสม็ด',
+            mapLines: ['ห้องประชุม', 'เกาะเสม็ด'],
+            phone: '-',
+            isMeeting: true,
+            keywords: ['ห้องประชุม', 'เกาะเสม็ด', 'ประชุมชั้น 4']
+          }
+        ],
+        top_right: [
+          {
+            id: 'f4_justice',
+            name: 'สำนักงานยุติธรรมจังหวัดชุมพร',
+            shortName: 'สำนักงานยุติธรรมจังหวัดชุมพร',
+            mapLines: ['สำนักงาน', 'ยุติธรรม', 'จังหวัดชุมพร'],
+            phone: '0-7751-2164',
+            keywords: ['ยุติธรรม', 'กองทุนยุติธรรม', 'ช่วยเหลือทางกฎหมาย', 'ทนาย']
+          },
+          {
+            id: 'f4_education',
+            name: 'สำนักงานศึกษาธิการจังหวัดชุมพร',
+            shortName: 'สำนักงานศึกษาธิการจังหวัดชุมพร',
+            mapLines: ['สำนักงาน', 'ศึกษาธิการ', 'จังหวัดชุมพร'],
+            phone: '0-7761-3417',
+            keywords: ['ศึกษาธิการ', 'ศธจ', 'โรงเรียน', 'ครู', 'การศึกษา']
+          }
+        ],
+        right_side: [
+          {
+            id: 'f4_ect',
+            name: 'สำนักงานคณะกรรมการการเลือกตั้งประจำจังหวัดชุมพร',
+            shortName: 'สำนักงาน กกต. ประจำจังหวัดชุมพร',
+            mapLines: ['สำนักงานคณะกรรมการ', 'การเลือกตั้งประจำ', 'จังหวัดชุมพร', '(กกต.)'],
+            phone: '0-7750-6150, 0-7750-6388',
+            keywords: ['กกต', 'เลือกตั้ง', 'พรรคการเมือง']
+          }
+        ]
+      }
+    };
+
+    function compileDirectory() {
+      const list = [];
+
+      [1, 2, 3, 4].forEach(f => {
+        const layout = RAW_FLOOR_LAYOUTS[f];
+
+        if (layout.bottom_right) {
+          const wSpec = GEOM.wings.bottom_right;
+          const n = layout.bottom_right.length;
+          const slotW = (wSpec.x2 - wSpec.x1) / n;
+          layout.bottom_right.forEach((item, idx) => {
+            const x = wSpec.x1 + idx * slotW;
+            list.push({
+              ...item,
+              floor: f,
+              zoneCode: 'A',
+              wing: 'โซน A : ทางเข้าหลัก (ตรงข้ามเสาธง)',
+              wingType: 'zoneA',
+              rect: { x: x + 2, y: wSpec.y + 2, w: slotW - 4, h: wSpec.h - 4 },
+              door: { x: x + slotW / 2, y: wSpec.doorY },
+              corridorNode: `f${f}_corr_bot_r_${idx}`
+            });
+          });
+        }
+
+        if (layout.opp_bottom) {
+          const wSpec = GEOM.wings.opp_bottom;
+          layout.opp_bottom.forEach((item) => {
+            list.push({
+              ...item,
+              floor: f,
+              zoneCode: 'A',
+              wing: 'โซน A : ตรงข้ามลิฟต์หลัก',
+              wingType: 'meeting',
+              rect: { x: wSpec.x + 2, y: wSpec.y + 2, w: wSpec.w - 4, h: wSpec.h - 4 },
+              door: { x: wSpec.x + wSpec.w / 2, y: wSpec.doorY },
+              corridorNode: `f${f}_lift_main_j`
+            });
+          });
+        }
+
+        if (layout.bottom_left) {
+          const wSpec = GEOM.wings.bottom_left;
+          const n = layout.bottom_left.length;
+          const slotW = (wSpec.x2 - wSpec.x1) / n;
+          layout.bottom_left.forEach((item, idx) => {
+            const x = wSpec.x1 + idx * slotW;
+            list.push({
+              ...item,
+              floor: f,
+              zoneCode: 'A',
+              wing: 'โซน A : ทางเข้าหลัก (ตรงข้ามเสาธง)',
+              wingType: 'zoneA',
+              rect: { x: x + 2, y: wSpec.y + 2, w: slotW - 4, h: wSpec.h - 4 },
+              door: { x: x + slotW / 2, y: wSpec.doorY },
+              corridorNode: `f${f}_corr_bot_l_${idx}`
+            });
+          });
+        }
+
+        if (layout.left_side) {
+          const wSpec = GEOM.wings.left_side;
+          const n = layout.left_side.length;
+          const slotH = (wSpec.y2 - wSpec.y1) / n;
+          layout.left_side.forEach((item, idx) => {
+            const y = wSpec.y1 + idx * slotH;
+            list.push({
+              ...item,
+              floor: f,
+              zoneCode: 'B',
+              wing: 'โซน B : ที่จอดรถ (ด้านประตูทางเข้าศาลากลาง)',
+              wingType: 'zoneB',
+              rect: { x: wSpec.x + 2, y: y + 2, w: wSpec.w - 4, h: slotH - 4 },
+              door: { x: wSpec.doorX, y: y + slotH / 2 },
+              corridorNode: `f${f}_corr_left_${idx}`
+            });
+          });
+        }
+
+        if (layout.top_left) {
+          const wSpec = GEOM.wings.top_left;
+          const n = layout.top_left.length;
+          const slotW = (wSpec.x2 - wSpec.x1) / n;
+          layout.top_left.forEach((item, idx) => {
+            const x = wSpec.x1 + idx * slotW;
+            list.push({
+              ...item,
+              floor: f,
+              zoneCode: 'C',
+              wing: item.isMeeting ? 'โซน C : ติดโถงลิฟต์หลัง' : 'โซน C : ทางเข้าหลัง (โรงจอดรถจักรยานยนต์)',
+              wingType: item.isMeeting ? 'meeting' : 'zoneC',
+              rect: { x: x + 2, y: wSpec.y + 2, w: slotW - 4, h: wSpec.h - 4 },
+              door: { x: x + slotW / 2, y: wSpec.doorY },
+              corridorNode: `f${f}_corr_top_l_${idx}`
+            });
+          });
+        }
+
+        if (layout.opp_top) {
+          const wSpec = GEOM.wings.opp_top;
+          layout.opp_top.forEach((item) => {
+            list.push({
+              ...item,
+              floor: f,
+              zoneCode: 'C',
+              wing: 'โซน C : ตรงข้ามลิฟต์หลัง',
+              wingType: 'meeting',
+              rect: { x: wSpec.x + 2, y: wSpec.y + 2, w: wSpec.w - 4, h: wSpec.h - 4 },
+              door: { x: wSpec.x + wSpec.w / 2, y: wSpec.doorY },
+              corridorNode: `f${f}_lift_back_j`
+            });
+          });
+        }
+
+        if (layout.top_right) {
+          const wSpec = GEOM.wings.top_right;
+          const n = layout.top_right.length;
+          const slotW = (wSpec.x2 - wSpec.x1) / n;
+          layout.top_right.forEach((item, idx) => {
+            const x = wSpec.x1 + idx * slotW;
+            list.push({
+              ...item,
+              floor: f,
+              zoneCode: 'C',
+              wing: 'โซน C : ทางเข้าหลัง (โรงจอดรถจักรยานยนต์)',
+              wingType: 'zoneC',
+              rect: { x: x + 2, y: wSpec.y + 2, w: slotW - 4, h: wSpec.h - 4 },
+              door: { x: x + slotW / 2, y: wSpec.doorY },
+              corridorNode: `f${f}_corr_top_r_${idx}`
+            });
+          });
+        }
+
+        if (layout.right_side) {
+          const wSpec = GEOM.wings.right_side;
+          const n = layout.right_side.length;
+          const slotH = (wSpec.y2 - wSpec.y1) / n;
+          layout.right_side.forEach((item, idx) => {
+            const y = wSpec.y1 + idx * slotH;
+            list.push({
+              ...item,
+              floor: f,
+              zoneCode: 'D',
+              wing: 'โซน D : โรงจอดรถส่วนราชการ',
+              wingType: 'zoneD',
+              rect: { x: wSpec.x + 2, y: y + 2, w: wSpec.w - 4, h: slotH - 4 },
+              door: { x: wSpec.doorX, y: y + slotH / 2 },
+              corridorNode: `f${f}_corr_right_${idx}`
+            });
+          });
+        }
+      });
+
+      return list;
+    }
+
+    const DIRECTORY = compileDirectory();
+
+    function buildSingleFloorGraph() {
+      const nodes = {};
+      const edges = [];
+
+      function addNode(id, floor, x, y, type, label) {
+        nodes[id] = { id, floor, x, y, type, label };
+      }
+
+      function addUndirectedEdge(a, b) {
+        const na = nodes[a];
+        const nb = nodes[b];
+        if (!na || !nb) return;
+        const dist = Math.hypot(na.x - nb.x, na.y - nb.y);
+        edges.push({ from: a, to: b, weight: dist });
+        edges.push({ from: b, to: a, weight: dist });
+      }
+
+      [1, 2, 3, 4].forEach(f => {
+        addNode(`f${f}_c_tl`, f, 236, 228, 'corridor', `มุมทางเดินโซน B–C ชั้น ${f}`);
+        addNode(`f${f}_c_tr`, f, 764, 228, 'corridor', `มุมทางเดินโซน C–D ชั้น ${f}`);
+        addNode(`f${f}_c_bl`, f, 236, 632, 'corridor', `มุมทางเดินโซน A–B ชั้น ${f}`);
+        addNode(`f${f}_c_br`, f, 764, 632, 'corridor', `มุมทางเดินโซน A–D ชั้น ${f}`);
+
+        addNode(`f${f}_sub_tl`, f, 80,  111, 'entrance', `ทางเข้าย่อยมุมโซน B–C ชั้น ${f}`);
+        addNode(`f${f}_sub_tr`, f, 920, 111, 'entrance', `ทางเข้าย่อยมุมโซน C–D ชั้น ${f}`);
+        addNode(`f${f}_sub_bl`, f, 80,  749, 'entrance', `ทางเข้าย่อยมุมโซน A–B ชั้น ${f}`);
+        addNode(`f${f}_sub_br`, f, 920, 749, 'entrance', `ทางเข้าย่อยมุมโซน A–D ชั้น ${f}`);
+
+        addNode(`f${f}_sub_tl_in`, f, 216, 170, 'corridor', '');
+        addNode(`f${f}_sub_tr_in`, f, 784, 170, 'corridor', '');
+        addNode(`f${f}_sub_bl_in`, f, 216, 690, 'corridor', '');
+        addNode(`f${f}_sub_br_in`, f, 784, 690, 'corridor', '');
+
+        addUndirectedEdge(`f${f}_sub_tl`, `f${f}_sub_tl_in`);
+        addUndirectedEdge(`f${f}_sub_tl_in`, `f${f}_c_tl`);
+        addUndirectedEdge(`f${f}_sub_tr`, `f${f}_sub_tr_in`);
+        addUndirectedEdge(`f${f}_sub_tr_in`, `f${f}_c_tr`);
+        addUndirectedEdge(`f${f}_sub_bl`, `f${f}_sub_bl_in`);
+        addUndirectedEdge(`f${f}_sub_bl_in`, `f${f}_c_bl`);
+        addUndirectedEdge(`f${f}_sub_br`, `f${f}_sub_br_in`);
+        addUndirectedEdge(`f${f}_sub_br_in`, `f${f}_c_br`);
+
+        addNode(`f${f}_lift_main_j`, f, 500, 632, 'elevator', `โถงลิฟต์หลัก โซน A ชั้น ${f}`);
+        addNode(`f${f}_lift_back_j`, f, 500, 228, 'elevator', `โถงลิฟต์หลัง โซน C ชั้น ${f}`);
+
+        if (f === 1) {
+          addNode('f1_ent_main', 1, 500, 690, 'entrance', 'ประตูทางเข้าหลัก โซน A');
+          addNode('f1_ent_back', 1, 500, 170, 'entrance', 'ประตูทางเข้าหลัง โซน C');
+          addUndirectedEdge('f1_ent_main', 'f1_lift_main_j');
+          addUndirectedEdge('f1_ent_back', 'f1_lift_back_j');
+        }
+
+        const floorRooms = DIRECTORY.filter(r => r.floor === f);
+
+        const botLeftRooms = floorRooms.filter(r => r.corridorNode.startsWith(`f${f}_corr_bot_l_`)).sort((a, b) => a.door.x - b.door.x);
+        const botRightRooms = floorRooms.filter(r => r.corridorNode.startsWith(`f${f}_corr_bot_r_`)).sort((a, b) => a.door.x - b.door.x);
+
+        let prevBotL = `f${f}_c_bl`;
+        botLeftRooms.forEach(r => {
+          addNode(r.corridorNode, f, r.door.x, 632, 'corridor', `ทางเดินโซน A ชั้น ${f}`);
+          addUndirectedEdge(prevBotL, r.corridorNode);
+          prevBotL = r.corridorNode;
+        });
+        addUndirectedEdge(prevBotL, `f${f}_lift_main_j`);
+
+        let prevBotR = `f${f}_lift_main_j`;
+        botRightRooms.forEach(r => {
+          addNode(r.corridorNode, f, r.door.x, 632, 'corridor', `ทางเดินโซน A ชั้น ${f}`);
+          addUndirectedEdge(prevBotR, r.corridorNode);
+          prevBotR = r.corridorNode;
+        });
+        addUndirectedEdge(prevBotR, `f${f}_c_br`);
+
+        const topLeftRooms = floorRooms.filter(r => r.corridorNode.startsWith(`f${f}_corr_top_l_`)).sort((a, b) => a.door.x - b.door.x);
+        const topRightRooms = floorRooms.filter(r => r.corridorNode.startsWith(`f${f}_corr_top_r_`)).sort((a, b) => a.door.x - b.door.x);
+
+        let prevTopL = `f${f}_c_tl`;
+        topLeftRooms.forEach(r => {
+          addNode(r.corridorNode, f, r.door.x, 228, 'corridor', `ทางเดินโซน C ชั้น ${f}`);
+          addUndirectedEdge(prevTopL, r.corridorNode);
+          prevTopL = r.corridorNode;
+        });
+        addUndirectedEdge(prevTopL, `f${f}_lift_back_j`);
+
+        let prevTopR = `f${f}_lift_back_j`;
+        topRightRooms.forEach(r => {
+          addNode(r.corridorNode, f, r.door.x, 228, 'corridor', `ทางเดินโซน C ชั้น ${f}`);
+          addUndirectedEdge(prevTopR, r.corridorNode);
+          prevTopR = r.corridorNode;
+        });
+        addUndirectedEdge(prevTopR, `f${f}_c_tr`);
+
+        const leftRooms = floorRooms.filter(r => r.corridorNode.startsWith(`f${f}_corr_left_`)).sort((a, b) => a.door.y - b.door.y);
+        let prevLeft = `f${f}_c_tl`;
+        leftRooms.forEach(r => {
+          addNode(r.corridorNode, f, 236, r.door.y, 'corridor', `ทางเดินโซน B ชั้น ${f}`);
+          addUndirectedEdge(prevLeft, r.corridorNode);
+          prevLeft = r.corridorNode;
+        });
+        addUndirectedEdge(prevLeft, `f${f}_c_bl`);
+
+        const rightRooms = floorRooms.filter(r => r.corridorNode.startsWith(`f${f}_corr_right_`)).sort((a, b) => a.door.y - b.door.y);
+        let prevRight = `f${f}_c_tr`;
+        rightRooms.forEach(r => {
+          addNode(r.corridorNode, f, 764, r.door.y, 'corridor', `ทางเดินโซน D ชั้น ${f}`);
+          addUndirectedEdge(prevRight, r.corridorNode);
+          prevRight = r.corridorNode;
+        });
+        addUndirectedEdge(prevRight, `f${f}_c_br`);
+
+        floorRooms.forEach(room => {
+          const doorId = `door_${room.id}`;
+          addNode(doorId, f, room.door.x, room.door.y, 'room', room.name);
+          addUndirectedEdge(room.corridorNode, doorId);
+        });
+      });
+
+      return { nodes, edges };
+    }
+
+    const GRAPH = buildSingleFloorGraph();
+
+    function findRouteOnFloor(startNodeId, targetRoomId) {
+      const targetNodeId = `door_${targetRoomId}`;
+      const startNode = GRAPH.nodes[startNodeId];
+      const targetNode = GRAPH.nodes[targetNodeId];
+      if (!startNode || !targetNode || startNode.floor !== targetNode.floor) return null;
+
+      const floorNodes = Object.keys(GRAPH.nodes).filter(id => GRAPH.nodes[id].floor === startNode.floor);
+      const distances = {};
+      const previous = {};
+      const unvisited = new Set(floorNodes);
+
+      unvisited.forEach(id => {
+        distances[id] = Infinity;
+        previous[id] = null;
+      });
+      distances[startNodeId] = 0;
+
+      while (unvisited.size > 0) {
+        let current = null;
+        let smallest = Infinity;
+        unvisited.forEach(id => {
+          if (distances[id] < smallest) {
+            smallest = distances[id];
+            current = id;
+          }
+        });
+
+        if (current === null || current === targetNodeId) break;
+        unvisited.delete(current);
+
+        GRAPH.edges.forEach(edge => {
+          if (edge.from !== current) return;
+          if (!unvisited.has(edge.to)) return;
+
+          const alt = distances[current] + edge.weight;
+          if (alt < distances[edge.to]) {
+            distances[edge.to] = alt;
+            previous[edge.to] = current;
+          }
+        });
+      }
+
+      if (distances[targetNodeId] === Infinity) return null;
+
+      const pathNodes = [];
+      let curr = targetNodeId;
+      while (curr) {
+        pathNodes.unshift(GRAPH.nodes[curr]);
+        curr = previous[curr];
+      }
+      return pathNodes;
+    }
+
+    function getTurnWord(hx, hy, dx, dy) {
+      const cross = hx * dy - hy * dx;
+      if (cross < -0.01) return 'เลี้ยวซ้าย';
+      if (cross > 0.01) return 'เลี้ยวขวา';
+      return 'เดินตรงไป';
+    }
+
+    function buildTurnByTurnDirections(startOption, targetRoom, pathNodes) {
+      const steps = [];
+      const f = targetRoom.floor;
+
+      let hx = 0, hy = 1;
+      if (startOption.id === 'ent_main') { hx = 0; hy = -1; }
+      else if (startOption.id === 'ent_back') { hx = 0; hy = 1; }
+      else if (startOption.id === 'lift_main') { hx = 0; hy = 1; }
+      else if (startOption.id === 'lift_back') { hx = 0; hy = -1; }
+      else if (startOption.id === 'sub_bl' || startOption.id === 'sub_tl') { hx = 1; hy = 0; }
+      else if (startOption.id === 'sub_br' || startOption.id === 'sub_tr') { hx = -1; hy = 0; }
+
+      if (f > 1 && startOption.kind === 'lift') {
+        steps.push(`ขึ้นลิฟต์หรือบันไดติดลิฟต์มาที่ <b>ชั้น ${f}</b> ออกจากโถงลิฟต์หันหน้าเข้าหาโถงทางเดิน`);
+      } else {
+        steps.push(`เริ่มต้นจาก <b>${startOption.label}</b> เดินเข้าสู่โถงทางเดิน`);
+      }
+
+      if (!pathNodes || pathNodes.length < 2) {
+        steps.push(`ถึงจุดหมาย <b>${targetRoom.name}</b> อยู่บริเวณด้านหน้าตรงข้ามโถงลิฟต์`);
+        return steps;
+      }
+
+      const rawSegs = [];
+      for (let i = 0; i < pathNodes.length - 1; i++) {
+        const a = pathNodes[i];
+        const b = pathNodes[i + 1];
+        const len = Math.hypot(b.x - a.x, b.y - a.y);
+        if (len < 1) continue;
+        const ux = Math.round((b.x - a.x) / len) || 0;
+        const uy = Math.round((b.y - a.y) / len) || 0;
+        if (rawSegs.length > 0 && rawSegs[rawSegs.length - 1].ux === ux && rawSegs[rawSegs.length - 1].uy === uy) {
+          rawSegs[rawSegs.length - 1].to = b;
+          rawSegs[rawSegs.length - 1].len += len;
+        } else {
+          rawSegs.push({ from: a, to: b, ux, uy, len });
+        }
+      }
+
+      const cornerLabels = {
+        [`f${f}_c_br`]: 'มุมโซน A–D',
+        [`f${f}_c_bl`]: 'มุมโซน A–B',
+        [`f${f}_c_tl`]: 'มุมโซน B–C',
+        [`f${f}_c_tr`]: 'มุมโซน C–D'
+      };
+
+      const corridorSegs = rawSegs.slice(0, -1);
+      const finalDoorSeg = rawSegs[rawSegs.length - 1];
+
+      corridorSegs.forEach((seg, idx) => {
+        if ((seg.from.id.startsWith('f1_ent_') || seg.from.id.includes('_sub_')) && idx === 0) {
+          hx = seg.ux;
+          hy = seg.uy;
+          return;
+        }
+
+        const turn = getTurnWord(hx, hy, seg.ux, seg.uy);
+        const toCorner = cornerLabels[seg.to.id];
+
+        if (toCorner) {
+          const nextSeg = corridorSegs[idx + 1];
+          const nextTurn = nextSeg ? getTurnWord(seg.ux, seg.uy, nextSeg.ux, nextSeg.uy) : '';
+          if (turn !== 'เดินตรงไป') {
+            steps.push(`<b>${turn}</b> เดินตรงไปตามโถงทางเดินจนสุดทางที่ <b>${toCorner}</b>`);
+          } else {
+            steps.push(`เดินตรงไปตามโถงทางเดินจนสุดทางที่ <b>${toCorner}</b>`);
+          }
+          if (nextTurn && nextTurn !== 'เดินตรงไป') {
+            const wrongWay = nextTurn === 'เลี้ยวซ้าย' ? 'เลี้ยวขวา' : 'เลี้ยวซ้าย';
+            steps.push(`ที่${toCorner} ให้ <b>${nextTurn}</b> เข้าสู่แนวโถงทางเดินถัดไป <span class="text-slate-500 text-xs">(หาก${wrongWay}จะเป็นห้องสุขาและบันไดมุมตึก)</span>`);
+            hx = nextSeg.ux;
+            hy = nextSeg.uy;
+            nextSeg._consumed = true;
+          } else {
+            hx = seg.ux;
+            hy = seg.uy;
+          }
+        } else if (!seg._consumed) {
+          if (turn !== 'เดินตรงไป') {
+            steps.push(`<b>${turn}</b> และเดินตรงไปตามแนวโถงทางเดิน`);
+          } else if (idx === 0) {
+            steps.push(`เดินตรงไปตามแนวโถงทางเดิน`);
+          }
+          hx = seg.ux;
+          hy = seg.uy;
+        }
+      });
+
+      if (finalDoorSeg) {
+        const sideTurn = getTurnWord(hx, hy, finalDoorSeg.ux, finalDoorSeg.uy);
+        const sideText = sideTurn === 'เลี้ยวซ้าย'
+          ? 'ทางซ้ายมือ'
+          : (sideTurn === 'เลี้ยวขวา' ? 'ทางขวามือ' : 'ด้านหน้า');
+        steps.push(`ถึงจุดหมาย <b>${targetRoom.name}</b> ประตูทางเข้าจะอยู่ <b>${sideText}</b>`);
+      }
+
+      return steps;
+    }
+
+    const state = {
+      viewingFloor: 1,
+      startKey: 'ent_main',
+      targetRoomId: null,
+      zoneFilter: 'ALL',
+      zoomPercent: 100
+    };
+
+    function getCurrentStartOption() {
+      const options = getFloorStartOptions(state.viewingFloor);
+      return options.find(o => o.id === state.startKey) || options[0];
+    }
+
+    function getTargetRoom() {
+      const room = DIRECTORY.find(r => r.id === state.targetRoomId) || null;
+      if (room && room.floor !== state.viewingFloor) return null;
+      return room;
+    }
+
+    function getZoneColors(wingType) {
+      switch (wingType) {
+        case 'zoneA':
+          return { fill: '#fef3c7', stroke: '#d97706', text: '#78350f', badge: 'bg-amber-100 text-amber-900 border-amber-300', dot: 'bg-amber-500' };
+        case 'zoneB':
+          return { fill: '#e0f2fe', stroke: '#0284c7', text: '#0c4a6e', badge: 'bg-sky-100 text-sky-900 border-sky-300', dot: 'bg-sky-500' };
+        case 'zoneC':
+          return { fill: '#ede9fe', stroke: '#7c3aed', text: '#4c1d95', badge: 'bg-violet-100 text-violet-900 border-violet-300', dot: 'bg-violet-500' };
+        case 'zoneD':
+          return { fill: '#d1fae5', stroke: '#059669', text: '#064e3b', badge: 'bg-emerald-100 text-emerald-900 border-emerald-300', dot: 'bg-emerald-500' };
+        case 'meeting':
+        default:
+          return { fill: '#ffe4e6', stroke: '#e11d48', text: '#881337', badge: 'bg-rose-100 text-rose-900 border-rose-300', dot: 'bg-rose-500' };
+      }
+    }
+
+    function safeThaiWrap(text, maxChars = 14) {
+      if (typeof Intl !== 'undefined' && Intl.Segmenter) {
+        const segmenter = new Intl.Segmenter('th', { granularity: 'word' });
+        const words = Array.from(segmenter.segment(text), s => s.segment);
+        const lines = [];
+        let cur = '';
+        words.forEach(w => {
+          if ((cur + w).length <= maxChars || cur === '') {
+            cur += w;
+          } else {
+            lines.push(cur.trim());
+            cur = w;
+          }
+        });
+        if (cur.trim()) lines.push(cur.trim());
+        return lines;
+      }
+      return [text];
+    }
+
+    function renderStartControls() {
+      const f = state.viewingFloor;
+      const options = getFloorStartOptions(f);
+      if (!options.some(o => o.id === state.startKey)) {
+        state.startKey = options[0].id;
+      }
+      document.getElementById('startPointLabel').textContent = `จุดเริ่มต้น (คุณอยู่ที่นี่ • ชั้น ${f}):`;
+
+      const selectEl = document.getElementById('startPointSelect');
+      selectEl.innerHTML = options.map(opt => `
+        <option value="${opt.id}" ${opt.id === state.startKey ? 'selected' : ''}>${opt.label}</option>
+      `).join('');
+    }
+
+    function renderQuickChips() {
+      const popularIds = ['f1_damrong', 'f1_treasury', 'f2_governor', 'f2_langkachio', 'f3_dpt', 'f3_agri', 'f4_ect', 'f4_poc'];
+      const container = document.getElementById('quickChipsContainer');
+      container.innerHTML = popularIds.map(id => {
+        const room = DIRECTORY.find(r => r.id === id);
+        if (!room) return '';
+        const isSelected = state.targetRoomId === room.id;
+        return `
+          <button type="button" data-room-id="${room.id}"
+            class="quick-chip shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-display font-medium border transition
+            ${isSelected
+              ? 'bg-gov-navy text-white border-gov-navy shadow-xs'
+              : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-amber-50 hover:border-amber-300 hover:text-gov-navy'}">
+            <span>${room.shortName}</span>
+            <span class="px-1.5 py-0.2 rounded-full text-[10px] ${isSelected ? 'bg-amber-400 text-gov-navy font-bold' : 'bg-slate-200 text-slate-600'}">
+              ชั้น ${room.floor}
+            </span>
+          </button>
+        `;
+      }).join('');
+
+      container.querySelectorAll('.quick-chip').forEach(btn => {
+        btn.addEventListener('click', () => selectDestination(btn.dataset.roomId, true));
+      });
+    }
+
+    function renderFloorTabs() {
+      const container = document.getElementById('floorTabsContainer');
+      container.innerHTML = [1, 2, 3, 4].map(f => {
+        const count = DIRECTORY.filter(r => r.floor === f).length;
+        const isActive = state.viewingFloor === f;
+        return `
+          <button type="button" data-floor="${f}"
+            class="floor-tab min-h-[44px] px-2 py-1.5 rounded-lg text-xs sm:text-sm font-display font-semibold transition flex flex-col items-center justify-center gap-0.5
+            ${isActive
+              ? 'bg-gov-navy text-white shadow-xs'
+              : 'text-slate-600 hover:bg-white hover:text-gov-navy'}">
+            <span>ชั้น ${f}</span>
+            <span class="text-[10px] px-1.5 py-0.2 rounded-full ${isActive ? 'bg-amber-400 text-gov-navy font-bold' : 'bg-slate-200 text-slate-600'}">
+              ${count}
+            </span>
+          </button>
+        `;
+      }).join('');
+
+      container.querySelectorAll('.floor-tab').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const nextFloor = Number(btn.dataset.floor);
+          if (state.viewingFloor !== nextFloor) {
+            state.viewingFloor = nextFloor;
+            state.targetRoomId = null;
+            state.zoneFilter = 'ALL';
+            state.startKey = nextFloor === 1 ? 'ent_main' : 'lift_main';
+          }
+          renderAll();
+          scrollToMapSection();
+        });
+      });
+
+      const meta = FLOOR_META[state.viewingFloor];
+      document.getElementById('activeFloorTitle').textContent = meta.title;
+      document.getElementById('activeFloorDesc').textContent = meta.desc;
+    }
+
+    function updateZoomDisplay() {
+      const wrapper = document.getElementById('svgZoomWrapper');
+      const label = document.getElementById('zoomLevelLabel');
+      wrapper.style.width = `${state.zoomPercent}%`;
+      label.textContent = `${state.zoomPercent}%`;
+    }
+
+    function render2DFloorPlan() {
+      const f = state.viewingFloor;
+      const rooms = DIRECTORY.filter(r => r.floor === f);
+      const startOpt = getCurrentStartOption();
+      const target = getTargetRoom();
+      const routeNodes = target ? findRouteOnFloor(startOpt.nodeId, target.id) : null;
+
+      const btnClear = document.getElementById('btnClearRoute');
+      if (target) btnClear.classList.remove('hidden');
+      else btnClear.classList.add('hidden');
+
+      const roomsSvg = rooms.map(room => {
+        const wc = getZoneColors(room.wingType);
+        const isTarget = target && target.id === room.id;
+        const cx = room.rect.x + room.rect.w / 2;
+        const cy = room.rect.y + room.rect.h / 2;
+        const lines = room.mapLines && room.mapLines.length ? room.mapLines : safeThaiWrap(room.shortName, 14);
+
+        let fontSize = 11.4;
+        if (room.rect.w < 60) fontSize = 9.2;
+        else if (room.rect.w < 80) fontSize = 10.2;
+        else if (room.rect.w >= 190) fontSize = 13.0;
+        const lineStep = fontSize + 4.5;
+
+        const textTspans = lines.map((line, idx) => {
+          const startY = cy - ((lines.length - 1) * (lineStep / 2)) + (idx * lineStep) + (fontSize * 0.35);
+          return `<tspan x="${cx}" y="${startY}">${line}</tspan>`;
+        }).join('');
+
+        return `
+          <g class="room-group" data-room-id="${room.id}" role="button" tabindex="0" aria-label="${room.name}">
+            <title>${room.name}</title>
+            <rect class="room-box ${isTarget ? 'room-target-glow' : ''}"
+              x="${room.rect.x}" y="${room.rect.y}" width="${room.rect.w}" height="${room.rect.h}" rx="8"
+              fill="${isTarget ? '#fee2e2' : wc.fill}"
+              stroke="${isTarget ? '#dc2626' : wc.stroke}"
+              stroke-width="${isTarget ? 3.5 : 1.8}" />
+            <text text-anchor="middle" fill="${isTarget ? '#991b1b' : wc.text}"
+              font-family="Prompt, Noto Sans Thai, sans-serif"
+              font-size="${fontSize}" font-weight="600">
+              ${textTspans}
+            </text>
+            <circle cx="${room.door.x}" cy="${room.door.y}" r="4.2"
+              fill="${isTarget ? '#dc2626' : '#ffffff'}"
+              stroke="${isTarget ? '#ffffff' : wc.stroke}" stroke-width="1.8" />
+          </g>
+        `;
+      }).join('');
+
+      const cornerConfigs = [
+        { key: 'tl', side: 'left',  wcPos: 'right', stairPos: 'left' },
+        { key: 'tr', side: 'right', wcPos: 'left',  stairPos: 'right' },
+        { key: 'bl', side: 'left',  wcPos: 'right', stairPos: 'left' },
+        { key: 'br', side: 'right', wcPos: 'left',  stairPos: 'right' }
+      ];
+
+      const cornersSvg = cornerConfigs.map(cfg => {
+        const c = GEOM.corners[cfg.key];
+        const halfW = c.w / 2;
+        const wcX = cfg.wcPos === 'left' ? c.x + 3 : c.x + halfW + 1;
+        const stX = cfg.stairPos === 'left' ? c.x + 3 : c.x + halfW + 1;
+
+        const badgeW = 64;
+        const badgeH = 26;
+        const badgeX = cfg.side === 'left' ? c.x - badgeW - 6 : c.x + c.w + 6;
+        const badgeY = c.y + (c.h - badgeH) / 2;
+        const arrowText = cfg.side === 'left' ? 'ทางเข้าย่อย ▶' : '◀ ทางเข้าย่อย';
+        const lineX1 = cfg.side === 'left' ? badgeX + badgeW : badgeX;
+        const lineX2 = cfg.side === 'left' ? c.x : c.x + c.w;
+        const lineY = c.y + c.h / 2;
+
+        return `
+          <g>
+            <rect x="${c.x}" y="${c.y}" width="${c.w}" height="${c.h}" rx="8" fill="#e2e8f0" stroke="#64748b" stroke-width="2" />
+            <rect x="${wcX}" y="${c.y + 4}" width="${halfW - 4}" height="${c.h - 24}" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="1.5" />
+            <text x="${wcX + (halfW - 4)/2}" y="${c.y + 42}" text-anchor="middle" fill="#1e293b" font-family="Prompt, sans-serif" font-size="11.5" font-weight="700">สุขา</text>
+            <text x="${wcX + (halfW - 4)/2}" y="${c.y + 58}" text-anchor="middle" fill="#64748b" font-family="Noto Sans Thai, sans-serif" font-size="9">ห้องน้ำ</text>
+            <rect x="${stX}" y="${c.y + 4}" width="${halfW - 4}" height="${c.h - 24}" rx="6" fill="#cbd5e1" stroke="#334155" stroke-width="1.5" />
+            <text x="${stX + (halfW - 4)/2}" y="${c.y + 41}" text-anchor="middle" fill="#0f172a" font-family="Prompt, sans-serif" font-size="12" font-weight="700">☰</text>
+            <text x="${stX + (halfW - 4)/2}" y="${c.y + 58}" text-anchor="middle" fill="#1e293b" font-family="Prompt, sans-serif" font-size="9.5" font-weight="600">บันได</text>
+            <text x="${c.x + c.w/2}" y="${c.y + c.h - 5}" text-anchor="middle" fill="#334155" font-family="Prompt, sans-serif" font-size="9.5" font-weight="700">
+              ${c.label}
+            </text>
+
+            <line x1="${lineX1}" y1="${lineY}" x2="${lineX2}" y2="${lineY}" stroke="#0f766e" stroke-width="2.2" />
+            <rect x="${badgeX}" y="${badgeY}" width="${badgeW}" height="${badgeH}" rx="6" fill="#0f766e" />
+            <text x="${badgeX + badgeW/2}" y="${badgeY + 16.5}" text-anchor="middle" fill="#ffffff" font-family="Prompt, sans-serif" font-size="8.6" font-weight="700">
+              ${arrowText}
+            </text>
+          </g>
+        `;
+      }).join('');
+
+      const renderCoreUnit = (core, titleLabel) => `
+        <g>
+          <rect x="${core.x}" y="${core.y}" width="${core.w}" height="${core.h}" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2" />
+          <rect x="${core.lift.x}" y="${core.lift.y}" width="${core.lift.w}" height="${core.lift.h}" rx="6" fill="#dbeafe" stroke="#1e40af" stroke-width="1.5" />
+          <text x="${core.lift.x + core.lift.w/2}" y="${core.lift.y + 24}" text-anchor="middle" fill="#1e3a8a" font-family="Prompt, sans-serif" font-size="13" font-weight="700">⇅</text>
+          <text x="${core.lift.x + core.lift.w/2}" y="${core.lift.y + 42}" text-anchor="middle" fill="#1e3a8a" font-family="Prompt, sans-serif" font-size="10.5" font-weight="700">${titleLabel}</text>
+          <rect x="${core.stair.x}" y="${core.stair.y}" width="${core.stair.w}" height="${core.stair.h}" rx="6" fill="#cbd5e1" stroke="#334155" stroke-width="1.5" />
+          <text x="${core.stair.x + core.stair.w/2}" y="${core.stair.y + 24}" text-anchor="middle" fill="#0f172a" font-family="Prompt, sans-serif" font-size="12" font-weight="700">☰</text>
+          <text x="${core.stair.x + core.stair.w/2}" y="${core.stair.y + 40}" text-anchor="middle" fill="#1e293b" font-family="Prompt, sans-serif" font-size="9.5" font-weight="700">บันได</text>
+          <text x="${core.stair.x + core.stair.w/2}" y="${core.stair.y + 52}" text-anchor="middle" fill="#475569" font-family="Noto Sans Thai, sans-serif" font-size="8.2">ติดลิฟต์</text>
+        </g>
+      `;
+
+      let floor1EntrancesSvg = '';
+      if (f === 1) {
+        floor1EntrancesSvg = `
+          <rect x="430" y="692" width="140" height="114" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="2" stroke-dasharray="5 3" />
+          <text x="500" y="744" text-anchor="middle" fill="#92400e" font-family="Prompt, sans-serif" font-size="12.5" font-weight="700">โถงทางเข้าหลัก</text>
+          <text x="500" y="764" text-anchor="middle" fill="#b45309" font-family="Prompt, sans-serif" font-size="10.5" font-weight="600">(ตรงข้ามเสาธง)</text>
+
+          <rect x="430" y="54" width="140" height="114" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2" stroke-dasharray="5 3" />
+          <text x="500" y="106" text-anchor="middle" fill="#5b21b6" font-family="Prompt, sans-serif" font-size="12.5" font-weight="700">โถงทางเข้าหลัง</text>
+          <text x="500" y="126" text-anchor="middle" fill="#6d28d9" font-family="Prompt, sans-serif" font-size="10.5" font-weight="600">(โรงจอดรถ จยย.)</text>
+        `;
+      }
+
+      let routeLayerSvg = '';
+      if (routeNodes && routeNodes.length >= 2) {
+        const pts = routeNodes.map(n => `${n.x},${n.y}`).join(' ');
+        routeLayerSvg = `
+          <polyline points="${pts}" fill="none" stroke="#fde68a" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
+          <polyline points="${pts}" fill="none" stroke="#d97706" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" class="route-animated" />
+        `;
+      }
+
+      let startPinSvg = '';
+      const sn = GRAPH.nodes[startOpt.nodeId];
+      if (sn) {
+        const badgeY = sn.y > 500 ? sn.y - 32 : sn.y + 14;
+        const badgeX = Math.max(85, Math.min(815, sn.x - 50));
+        startPinSvg = `
+          <g>
+            <circle cx="${sn.x}" cy="${sn.y}" r="15" fill="#10b981" opacity="0.35" class="svg-pulse" />
+            <circle cx="${sn.x}" cy="${sn.y}" r="8" fill="#059669" stroke="#ffffff" stroke-width="2.5" />
+            <rect x="${badgeX}" y="${badgeY}" width="100" height="22" rx="11" fill="#059669" stroke="#ffffff" stroke-width="1.5" />
+            <text x="${badgeX + 50}" y="${badgeY + 14.5}" text-anchor="middle" fill="#ffffff" font-family="Prompt, sans-serif" font-size="11" font-weight="700">
+              ● จุดเริ่มต้น
+            </text>
+          </g>
+        `;
+      }
+
+      let targetPinSvg = '';
+      if (target) {
+        const tx = target.door.x;
+        const ty = target.door.y;
+        const pinY = ty > 660 ? ty - 33 : ty + 12;
+        const pinX = Math.max(85, Math.min(830, tx - 42));
+        targetPinSvg = `
+          <g>
+            <circle cx="${tx}" cy="${ty}" r="16" fill="#dc2626" opacity="0.32" class="svg-pulse" />
+            <circle cx="${tx}" cy="${ty}" r="8" fill="#dc2626" stroke="#fbbf24" stroke-width="2.5" />
+            <rect x="${pinX}" y="${pinY}" width="84" height="21" rx="10.5" fill="#dc2626" stroke="#ffffff" stroke-width="1.5" />
+            <text x="${pinX + 42}" y="${pinY + 14}" text-anchor="middle" fill="#ffffff" font-family="Prompt, sans-serif" font-size="10.5" font-weight="700">
+              ★ จุดหมาย
+            </text>
+          </g>
+        `;
+      }
+
+      const svgMarkup = `
+        <svg viewBox="0 0 1000 860" class="w-full h-auto block select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="govBlueprintGrid" width="28" height="28" patternUnits="userSpaceOnUse">
+              <path d="M 28 0 L 0 0 0 28" fill="none" stroke="#f1f5f9" stroke-width="1" />
+            </pattern>
+            <pattern id="grassPattern" width="24" height="24" patternUnits="userSpaceOnUse">
+              <rect width="24" height="24" fill="#dcfce7" />
+              <circle cx="6" cy="8" r="1.3" fill="#86efac" />
+              <circle cx="18" cy="16" r="1.3" fill="#4ade80" />
+            </pattern>
+          </defs>
+          <rect width="1000" height="860" fill="url(#govBlueprintGrid)" />
+
+          <rect x="275" y="10" width="450" height="30" rx="10" fill="#ede9fe" stroke="#8b5cf6" stroke-width="1.5" />
+          <text x="500" y="30" text-anchor="middle" fill="#4c1d95" font-family="Prompt, sans-serif" font-size="13.5" font-weight="700">
+            โซน C : ทางเข้าหลัง (โรงจอดรถจักรยานยนต์)
+          </text>
+
+          <rect x="275" y="820" width="450" height="30" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="1.5" />
+          <text x="500" y="840" text-anchor="middle" fill="#78350f" font-family="Prompt, sans-serif" font-size="13.5" font-weight="700">
+            โซน A : ทางเข้าหลัก (ตรงข้ามเสาธง)
+          </text>
+
+          <g transform="rotate(-90 24 430)">
+            <rect x="-176" y="415" width="400" height="28" rx="9" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5" />
+            <text x="24" y="434" text-anchor="middle" fill="#0c4a6e" font-family="Prompt, sans-serif" font-size="12.5" font-weight="700">
+              โซน B : ที่จอดรถ (ด้านประตูทางเข้าศาลากลาง)
+            </text>
+          </g>
+
+          <g transform="rotate(90 976 430)">
+            <rect x="806" y="415" width="340" height="28" rx="9" fill="#d1fae5" stroke="#059669" stroke-width="1.5" />
+            <text x="976" y="434" text-anchor="middle" fill="#064e3b" font-family="Prompt, sans-serif" font-size="12.5" font-weight="700">
+              โซน D : โรงจอดรถส่วนราชการ
+            </text>
+          </g>
+
+          <rect x="80" y="52" width="840" height="756" rx="14" fill="#ffffff" stroke="#475569" stroke-width="3" />
+
+          <rect x="220" y="212" width="560" height="436" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+          <rect x="236" y="228" width="528" height="404" rx="8" fill="none" stroke="#94a3b8" stroke-width="1.4" stroke-dasharray="6 6" />
+
+          <rect x="292" y="346" width="416" height="168" rx="16" fill="url(#grassPattern)" stroke="#16a34a" stroke-dasharray="6 4" stroke-width="2" />
+          <text x="500" y="424" text-anchor="middle" fill="#14532d" font-family="Prompt, sans-serif" font-size="17" font-weight="700">
+            พื้นที่โล่ง • สนามหญ้ากลางอาคาร
+          </text>
+          <text x="500" y="448" text-anchor="middle" fill="#166534" font-family="Noto Sans Thai, sans-serif" font-size="12.5" font-weight="600">
+            อาคารศาลากลางจังหวัดชุมพร • ชั้น ${f}
+          </text>
+
+          ${cornersSvg}
+          ${renderCoreUnit(GEOM.cores.top, 'ลิฟต์หลัง')}
+          ${renderCoreUnit(GEOM.cores.bottom, 'ลิฟต์หลัก')}
+          ${floor1EntrancesSvg}
+          ${roomsSvg}
+          ${routeLayerSvg}
+          ${startPinSvg}
+          ${targetPinSvg}
+        </svg>
+      `;
+
+      const container = document.getElementById('svgPlanContainer');
+      container.innerHTML = svgMarkup;
+      updateZoomDisplay();
+
+      container.querySelectorAll('.room-group').forEach(group => {
+        const selectFn = () => selectDestination(group.dataset.roomId, false);
+        group.addEventListener('click', selectFn);
+        group.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            selectFn();
+          }
+        });
+      });
+    }
+
+    function renderNavigationCard() {
+      const card = document.getElementById('navigationCard');
+      const startOpt = getCurrentStartOption();
+      const target = getTargetRoom();
+
+      if (!target) {
+        card.classList.add('hidden');
+        card.innerHTML = '';
+        return;
+      }
+
+      card.classList.remove('hidden');
+      const wc = getZoneColors(target.wingType);
+      const routeNodes = findRouteOnFloor(startOpt.nodeId, target.id);
+      const steps = buildTurnByTurnDirections(startOpt, target, routeNodes);
+      const hasPhone = target.phone && target.phone !== '-';
+
+      card.innerHTML = `
+        <div class="p-4 bg-gradient-to-r from-gov-navy to-gov-navyLight text-white">
+          <div class="flex items-start justify-between gap-2 mb-2">
+            <div class="flex flex-wrap items-center gap-1.5">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-display font-bold bg-amber-400 text-gov-navy">
+                ชั้น ${target.floor}
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-display font-semibold border ${wc.badge}">
+                ${target.wing}
+              </span>
+            </div>
+            <button id="btnCloseNavCard" type="button" class="p-1 rounded-lg text-white/70 hover:text-white hover:bg-white/10" title="ปิด">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <h3 class="font-display text-base sm:text-lg font-bold leading-snug">
+            ${target.name}
+          </h3>
+          ${hasPhone ? `
+            <div class="mt-2.5 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/12 border border-white/20 text-amber-200 font-display text-xs sm:text-sm font-semibold">
+              <svg class="w-4 h-4 text-amber-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              <span>เบอร์โทรศัพท์ติดต่อ (ข้อมูล Google Maps) : <b class="text-white">${target.phone}</b></span>
+            </div>
+          ` : `
+            <div class="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/10 text-slate-200 text-xs">
+              <span>ห้องประชุม / จุดบริการภายในอาคาร</span>
+            </div>
+          `}
+        </div>
+
+        <div class="p-4 space-y-3">
+          <h4 class="font-display text-xs font-bold text-slate-500 uppercase tracking-wider">
+            คำแนะนำเส้นทางเดินภายในชั้น ${target.floor}
+          </h4>
+          <ol class="space-y-2.5">
+            ${steps.map((txt, idx) => `
+              <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 leading-relaxed">
+                <span class="w-5 h-5 rounded-full bg-gov-navy text-amber-400 font-display font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
+                  ${idx + 1}
+                </span>
+                <span>${txt}</span>
+              </li>
+            `).join('')}
+          </ol>
+        </div>
+      `;
+
+      document.getElementById('btnCloseNavCard').addEventListener('click', () => {
+        state.targetRoomId = null;
+        renderAll();
+      });
+    }
+
+    function renderSidebarRoomList() {
+      const f = state.viewingFloor;
+      const allFloorRooms = DIRECTORY.filter(r => r.floor === f);
+      document.getElementById('sidebarFloorTitle').textContent = `รายชื่อหน่วยงานในชั้น ${f}`;
+      document.getElementById('sidebarFloorBadge').textContent = `${allFloorRooms.length} หน่วยงาน/ห้อง`;
+
+      const filters = [
+        { key: 'ALL', label: `ทั้งหมด (${allFloorRooms.length})` },
+        { key: 'A', label: 'โซน A' },
+        { key: 'B', label: 'โซน B' },
+        { key: 'C', label: 'โซน C' },
+        { key: 'D', label: 'โซน D' }
+      ];
+
+      const filterBar = document.getElementById('zoneFilterBar');
+      filterBar.innerHTML = filters.map(flt => {
+        const active = state.zoneFilter === flt.key;
+        return `
+          <button type="button" data-zone="${flt.key}"
+            class="zone-filter-btn shrink-0 px-3 py-1 rounded-lg text-xs font-display font-semibold transition
+            ${active ? 'bg-gov-navy text-white' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'}">
+            ${flt.label}
+          </button>
+        `;
+      }).join('');
+
+      filterBar.querySelectorAll('.zone-filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.zoneFilter = btn.dataset.zone;
+          renderSidebarRoomList();
+        });
+      });
+
+      const visibleRooms = state.zoneFilter === 'ALL'
+        ? allFloorRooms
+        : allFloorRooms.filter(r => r.zoneCode === state.zoneFilter);
+
+      const listEl = document.getElementById('sidebarRoomList');
+      listEl.innerHTML = visibleRooms.map(r => {
+        const wc = getZoneColors(r.wingType);
+        const isSelected = state.targetRoomId === r.id;
+        return `
+          <button type="button" data-room-id="${r.id}"
+            class="sidebar-room-btn w-full text-left px-4 py-3.5 flex items-center justify-between gap-2.5 transition
+            ${isSelected ? 'bg-amber-50/95' : 'hover:bg-slate-50'}">
+            <div class="flex items-start gap-2.5 min-w-0">
+              <span class="w-2.5 h-2.5 rounded-full ${wc.dot} shrink-0 mt-1.5"></span>
+              <div class="min-w-0">
+                <div class="font-display text-xs sm:text-sm font-semibold ${isSelected ? 'text-gov-navy font-bold' : 'text-slate-800'} leading-snug">
+                  ${r.name}
+                </div>
+                <div class="flex flex-wrap items-center gap-2 mt-1 text-[11px] text-slate-500">
+                  <span class="px-1.5 py-0.2 rounded border ${wc.badge} font-display font-medium">${r.wing}</span>
+                  ${r.phone !== '-' ? `<span class="text-slate-600 font-medium">โทร ${r.phone}</span>` : ''}
+                </div>
+              </div>
+            </div>
+            <span class="shrink-0 text-[11px] font-display font-semibold text-gov-navy bg-slate-100 px-2.5 py-1 rounded-lg">
+              ดูเส้นทาง →
+            </span>
+          </button>
+        `;
+      }).join('');
+
+      listEl.querySelectorAll('.sidebar-room-btn').forEach(btn => {
+        btn.addEventListener('click', () => selectDestination(btn.dataset.roomId, true));
+      });
+    }
+
+    function scrollToMapSection() {
+      const mapEl = document.getElementById('mapSection');
+      if (mapEl) {
+        mapEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function selectDestination(roomId, shouldScrollToMap = true) {
+      const room = DIRECTORY.find(r => r.id === roomId);
+      if (!room) return;
+      if (state.viewingFloor !== room.floor) {
+        state.viewingFloor = room.floor;
+        state.zoneFilter = 'ALL';
+        state.startKey = room.floor === 1 ? 'ent_main' : 'lift_main';
+      }
+      state.targetRoomId = room.id;
+
+      document.getElementById('searchDropdown').classList.add('hidden');
+      renderAll();
+      if (shouldScrollToMap) {
+        scrollToMapSection();
+      }
+    }
+
+    function handleSearch() {
+      const input = document.getElementById('searchInput');
+      const clearBtn = document.getElementById('btnClearSearch');
+      const dropdown = document.getElementById('searchDropdown');
+      const q = input.value.trim().toLowerCase();
+
+      if (!q) {
+        clearBtn.classList.add('hidden');
+        dropdown.classList.add('hidden');
+        return;
+      }
+
+      clearBtn.classList.remove('hidden');
+
+      const results = DIRECTORY.filter(r => {
+        const searchable = [
+          r.name,
+          r.shortName,
+          r.wing,
+          r.phone,
+          `ชั้น ${r.floor}`,
+          ...(r.keywords || [])
+        ].join(' ').toLowerCase();
+        return searchable.includes(q);
+      });
+
+      if (results.length === 0) {
+        dropdown.innerHTML = `
+          <div class="p-4 text-center text-xs sm:text-sm text-slate-500">
+            ไม่พบหน่วยงานที่ตรงกับ "<span class="font-bold text-slate-800">${input.value}</span>"
+          </div>
+        `;
+      } else {
+        dropdown.innerHTML = results.map(r => {
+          const wc = getZoneColors(r.wingType);
+          return `
+            <button type="button" data-room-id="${r.id}"
+              class="search-item w-full text-left px-3.5 py-2.5 hover:bg-amber-50 border-b border-slate-100 last:border-b-0 flex items-center justify-between gap-2.5 transition">
+              <div class="min-w-0">
+                <div class="font-display text-xs sm:text-sm font-semibold text-slate-800 truncate">${r.name}</div>
+                <div class="text-[11px] text-slate-500 mt-0.5">
+                  ${r.phone !== '-' ? `โทร ${r.phone}` : 'ห้องประชุม / จุดบริการ'}
+                </div>
+              </div>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <span class="px-2 py-0.5 rounded-md text-[11px] font-display font-bold bg-gov-navy text-amber-400">
+                  ชั้น ${r.floor}
+                </span>
+                <span class="px-2 py-0.5 rounded-md text-[11px] font-display font-medium border ${wc.badge}">
+                  โซน ${r.zoneCode}
+                </span>
+              </div>
+            </button>
+          `;
+        }).join('');
+
+        dropdown.querySelectorAll('.search-item').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const room = DIRECTORY.find(r => r.id === btn.dataset.roomId);
+            input.value = room.name;
+            selectDestination(room.id, true);
+          });
+        });
+      }
+
+      dropdown.classList.remove('hidden');
+    }
+
+    function renderAll() {
+      renderStartControls();
+      renderQuickChips();
+      renderFloorTabs();
+      render2DFloorPlan();
+      renderNavigationCard();
+      renderSidebarRoomList();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('startPointSelect').addEventListener('change', e => {
+        state.startKey = e.target.value;
+        renderAll();
+      });
+
+      document.getElementById('btnZoomIn').addEventListener('click', () => {
+        state.zoomPercent = Math.min(180, state.zoomPercent + 20);
+        updateZoomDisplay();
+      });
+      document.getElementById('btnZoomOut').addEventListener('click', () => {
+        state.zoomPercent = Math.max(100, state.zoomPercent - 20);
+        updateZoomDisplay();
+      });
+      document.getElementById('btnZoomReset').addEventListener('click', () => {
+        state.zoomPercent = 100;
+        const scroller = document.getElementById('mapScrollViewport');
+        if (scroller) scroller.scrollLeft = 0;
+        updateZoomDisplay();
+      });
+
+      const resetAllFn = () => {
+        state.targetRoomId = null;
+        state.zoneFilter = 'ALL';
+        state.zoomPercent = 100;
+        state.startKey = state.viewingFloor === 1 ? 'ent_main' : 'lift_main';
+        document.getElementById('searchInput').value = '';
+        document.getElementById('btnClearSearch').classList.add('hidden');
+        document.getElementById('searchDropdown').classList.add('hidden');
+        renderAll();
+      };
+
+      document.getElementById('btnClearRoute').addEventListener('click', resetAllFn);
+      document.getElementById('btnResetAllTop').addEventListener('click', resetAllFn);
+
+      const searchInput = document.getElementById('searchInput');
+      searchInput.addEventListener('input', handleSearch);
+      searchInput.addEventListener('focus', () => { if (searchInput.value.trim()) handleSearch(); });
+      document.getElementById('btnClearSearch').addEventListener('click', () => {
+        searchInput.value = '';
+        document.getElementById('btnClearSearch').classList.add('hidden');
+        document.getElementById('searchDropdown').classList.add('hidden');
+        searchInput.focus();
+      });
+
+      document.addEventListener('click', e => {
+        if (!searchInput.contains(e.target) && !document.getElementById('searchDropdown').contains(e.target)) {
+          document.getElementById('searchDropdown').classList.add('hidden');
+        }
+      });
+
+      renderAll();
+    });
+  </script>
+</body>
+</html>
