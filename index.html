@@ -82,36 +82,27 @@
 <body class="min-h-screen flex flex-col">
 
   <header class="bg-gradient-to-r from-gov-navyDark via-gov-navy to-gov-navyLight text-white shadow-md border-b-[3px] border-gov-amber z-40">
-    <div class="max-w-5xl mx-auto px-3.5 sm:px-6 py-2.5 sm:py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-      <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
-        <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-amber-300 via-amber-500 to-amber-600 p-0.5 shrink-0 shadow">
-          <div class="w-full h-full rounded-[10px] bg-gov-navyDark flex items-center justify-center">
-            <svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 4L6 11.5H30L18 4Z" fill="#FBBF24"/>
-              <rect x="8.5" y="13" width="2.6" height="10" rx="1" fill="#FDE68A"/>
-              <rect x="13.5" y="13" width="2.6" height="10" rx="1" fill="#FDE68A"/>
-              <rect x="19.9" y="13" width="2.6" height="10" rx="1" fill="#FDE68A"/>
-              <rect x="24.9" y="13" width="2.6" height="10" rx="1" fill="#FDE68A"/>
-              <rect x="6" y="24" width="24" height="2.4" rx="1.2" fill="#F59E0B"/>
-              <path d="M7 29.5C10.5 27.8 14.2 31.2 18 29.5C21.8 27.8 25.5 31.2 29 29.5" stroke="#38BDF8" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </div>
-        </div>
-        <div class="min-w-0 flex-1">
-          <h1 class="font-display text-base sm:text-xl font-bold tracking-tight text-white leading-snug">
-            ศาลากลางจังหวัดชุมพร
-          </h1>
-          <p class="text-[11.5px] sm:text-xs text-amber-200/95 font-medium leading-tight mt-0.5">
-            ระบบแผนผังและนำทางภายในอาคาร (ชั้น 1–4)
-          </p>
+    <div class="max-w-5xl mx-auto px-3.5 sm:px-6 py-2.5 sm:py-3 flex items-center gap-3">
+      <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-amber-300 via-amber-500 to-amber-600 p-0.5 shrink-0 shadow">
+        <div class="w-full h-full rounded-[10px] bg-gov-navyDark flex items-center justify-center">
+          <svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 4L6 11.5H30L18 4Z" fill="#FBBF24"/>
+            <rect x="8.5" y="13" width="2.6" height="10" rx="1" fill="#FDE68A"/>
+            <rect x="13.5" y="13" width="2.6" height="10" rx="1" fill="#FDE68A"/>
+            <rect x="19.9" y="13" width="2.6" height="10" rx="1" fill="#FDE68A"/>
+            <rect x="24.9" y="13" width="2.6" height="10" rx="1" fill="#FDE68A"/>
+            <rect x="6" y="24" width="24" height="2.4" rx="1.2" fill="#F59E0B"/>
+            <path d="M7 29.5C10.5 27.8 14.2 31.2 18 29.5C21.8 27.8 25.5 31.2 29 29.5" stroke="#38BDF8" stroke-width="2" stroke-linecap="round"/>
+          </svg>
         </div>
       </div>
-
-      <div class="self-end sm:self-center shrink-0">
-        <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/8 border border-white/15 text-[9.5px] sm:text-[10px] text-slate-200 leading-none">
-          <span class="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0"></span>
-          <span>ผู้พัฒนา : ปวริศร์ จารึก • พนักงานวิชาการแผนที่ภาพถ่าย</span>
-        </div>
+      <div class="min-w-0 flex-1">
+        <h1 class="font-display text-base sm:text-xl font-bold tracking-tight text-white leading-snug">
+          ศาลากลางจังหวัดชุมพร
+        </h1>
+        <p class="text-[11.5px] sm:text-xs text-amber-200/95 font-medium leading-tight mt-0.5">
+          ระบบแผนผังและนำทางภายในอาคาร (ชั้น 1–4)
+        </p>
       </div>
     </div>
   </header>
@@ -244,6 +235,15 @@
         <span class="inline-flex items-center gap-1"><span class="px-1.5 py-0.2 rounded bg-rose-100 text-rose-900 border border-rose-400 font-bold text-[10px]">ห้องประชุม</span> ตรงข้ามลิฟต์</span>
       </div>
     </section>
+
+    <div class="flex items-center justify-center px-3 py-1.5 rounded-xl bg-white/90 border border-slate-200/90 shadow-2xs text-[10.5px] sm:text-xs text-slate-600 text-center">
+      <span class="inline-flex flex-wrap items-center justify-center gap-x-1.5 gap-y-0.5">
+        <span class="w-1.5 h-1.5 rounded-full bg-gov-amber shrink-0"></span>
+        <span>ผู้พัฒนา : <b class="font-display font-semibold text-gov-navy">ปวริศร์ จารึก</b></span>
+        <span class="text-slate-400">•</span>
+        <span>พนักงานวิชาการแผนที่ภาพถ่าย</span>
+      </span>
+    </div>
 
     <section id="navigationCard" class="hidden bg-white rounded-2xl border-2 border-gov-amber shadow-md overflow-hidden"></section>
 
