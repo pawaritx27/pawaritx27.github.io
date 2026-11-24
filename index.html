@@ -1197,9 +1197,9 @@
       else if (startOption.id === 'sub_br' || startOption.id === 'sub_tr') { hx = -1; hy = 0; }
 
       if (f > 1 && startOption.kind === 'lift') {
-        steps.push(`ขึ้นลิฟต์หรือบันไดติดลิฟต์มาที่ <b>ชั้น ${f}</b> ออกจากโถงลิฟต์หันหน้าเข้าหาแนวทางเดิน`);
+        steps.push(`ขึ้นลิฟต์หรือบันไดติดลิฟต์มาที่ <b>ชั้น ${f}</b> ออกจากโถงลิฟต์หันหน้าเข้าหาโถงทางเดิน`);
       } else {
-        steps.push(`เริ่มต้นจาก <b>${startOption.label}</b> หันหน้าเข้าสู่โถงทางเดิน`);
+        steps.push(`เริ่มต้นจาก <b>${startOption.label}</b> เดินเข้าสู่โถงทางเดิน`);
       }
 
       if (!pathNodes || pathNodes.length < 2) {
@@ -1213,8 +1213,8 @@
         const b = pathNodes[i + 1];
         const len = Math.hypot(b.x - a.x, b.y - a.y);
         if (len < 1) continue;
-        const ux = Math.round((b.x - a.x) / len);
-        const uy = Math.round((b.y - a.y) / len);
+        const ux = Math.round((b.x - a.x) / len) || 0;
+        const uy = Math.round((b.y - a.y) / len) || 0;
         if (rawSegs.length > 0 && rawSegs[rawSegs.length - 1].ux === ux && rawSegs[rawSegs.length - 1].uy === uy) {
           rawSegs[rawSegs.length - 1].to = b;
           rawSegs[rawSegs.length - 1].len += len;
@@ -1234,12 +1234,7 @@
       const finalDoorSeg = rawSegs[rawSegs.length - 1];
 
       corridorSegs.forEach((seg, idx) => {
-        if (seg.from.id.startsWith('f1_ent_') && idx === 0) {
-          hx = seg.ux;
-          hy = seg.uy;
-          return;
-        }
-        if (seg.from.id.includes('_sub_')) {
+        if ((seg.from.id.startsWith('f1_ent_') || seg.from.id.includes('_sub_')) && idx === 0) {
           hx = seg.ux;
           hy = seg.uy;
           return;
@@ -1249,16 +1244,16 @@
         const toCorner = cornerLabels[seg.to.id];
 
         if (toCorner) {
-          const oppositeTurn = turn === 'เลี้ยวซ้าย' ? 'เลี้ยวขวา' : 'เลี้ยวซ้าย';
           const nextSeg = corridorSegs[idx + 1];
           const nextTurn = nextSeg ? getTurnWord(seg.ux, seg.uy, nextSeg.ux, nextSeg.uy) : '';
           if (turn !== 'เดินตรงไป') {
-            steps.push(`<b>${turn}</b> เดินตรงไปตามแนวโถงทางเดินจนสุดทางที่ <b>${toCorner}</b>`);
+            steps.push(`<b>${turn}</b> เดินตรงไปตามโถงทางเดินจนสุดทางที่ <b>${toCorner}</b>`);
           } else {
-            steps.push(`เดินตรงไปตามแนวโถงทางเดินจนสุดทางที่ <b>${toCorner}</b>`);
+            steps.push(`เดินตรงไปตามโถงทางเดินจนสุดทางที่ <b>${toCorner}</b>`);
           }
           if (nextTurn && nextTurn !== 'เดินตรงไป') {
-            steps.push(`ที่${toCorner} ให้ <b>${nextTurn}</b> เข้าสู่แนวทางเดินถัดไป <span class="text-slate-500 text-xs">(หาก${oppositeTurn === nextTurn ? 'เดินเลย' : oppositeTurn}จะเป็นห้องสุขาและบันไดมุมตึก)</span>`);
+            const wrongWay = nextTurn === 'เลี้ยวซ้าย' ? 'เลี้ยวขวา' : 'เลี้ยวซ้าย';
+            steps.push(`ที่${toCorner} ให้ <b>${nextTurn}</b> เข้าสู่แนวโถงทางเดินถัดไป <span class="text-slate-500 text-xs">(หาก${wrongWay}จะเป็นห้องสุขาและบันไดมุมตึก)</span>`);
             hx = nextSeg.ux;
             hy = nextSeg.uy;
             nextSeg._consumed = true;
